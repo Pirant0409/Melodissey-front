@@ -5,11 +5,10 @@ import { IdbService } from '../../services/idb.service';
 import { AppComponent } from '../../app.component';
 
 @Component({
-  selector: 'app-previous',
-  standalone: true,
-  imports: [],
-  templateUrl: './previous.component.html',
-  styleUrl: './previous.component.scss'
+    selector: 'app-previous',
+    imports: [],
+    templateUrl: './previous.component.html',
+    styleUrl: './previous.component.scss'
 })
 export class PreviousComponent implements OnInit{
 

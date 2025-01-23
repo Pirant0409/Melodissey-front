@@ -4,11 +4,10 @@ import { DaysInterface } from '../../interfaces/days-interface';
 import { RawMoviesInterface } from '../../interfaces/raw-movies-interface';
 
 @Component({
-  selector: 'app-days',
-  standalone: true,
-  imports: [],
-  templateUrl: './days.component.html',
-  styleUrl: './days.component.scss'
+    selector: 'app-days',
+    imports: [],
+    templateUrl: './days.component.html',
+    styleUrl: './days.component.scss'
 })
 export class DaysComponent {
 

@@ -5,11 +5,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 
 @Component({
-  selector: 'app-admin',
-  standalone: true,
-  imports: [ReactiveFormsModule],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+    selector: 'app-admin',
+    imports: [ReactiveFormsModule],
+    templateUrl: './login.component.html',
+    styleUrl: './login.component.scss'
 })
 export class LoginComponent {
 

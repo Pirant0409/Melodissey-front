@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-movies',
-  standalone: true,
-  imports: [],
-  templateUrl: './movies.component.html',
-  styleUrl: './movies.component.scss'
+    selector: 'app-movies',
+    imports: [],
+    templateUrl: './movies.component.html',
+    styleUrl: './movies.component.scss'
 })
 export class MoviesComponent {
 

@@ -10,11 +10,10 @@ import { Subscription } from 'rxjs';
 import { StatsInterface } from '../../interfaces/stats-interface';
 
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [CommonModule, FormsModule,],
-  templateUrl: './day.component.html',
-  styleUrl: './day.component.scss'
+    selector: 'app-home',
+    imports: [CommonModule, FormsModule,],
+    templateUrl: './day.component.html',
+    styleUrl: './day.component.scss'
 })
 export class DayComponent implements OnInit{
   
