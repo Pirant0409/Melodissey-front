@@ -1,0 +1,10 @@
+@for(day of allDays; track day.id; let idx = $index){
+    <div class="card">
+        <h5 class="card-header">Day #{{day.id}}</h5>
+        <div class="card-body">
+          <h5 class="card-title">{{allMovies[idx].original_title}}</h5>
+          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+}

@@ -1,0 +1,196 @@
+<!--############################# YTB IFRAME #############################-->
+<div id="player" class=" justify-content-center mb-4"></div>
+@if (dataLoaded && YTPReady){
+
+    @if(!showResult){
+        <div class="container mb-5 mt-5">
+            <div class="d-flex justify-content-center">
+            
+            <button (click)="backwardButton()" class="btn btn-dark btn-lg m-2" style="color:rgba(255, 255, 255, 0.356);">
+                <i class="fa-solid fa-backward"></i>
+            </button>
+            
+            <button (click)="onPlayButtonClicked()" class="btn btn-dark btn-lg playbtn" style="color:rgba(255, 255, 255, 0.356);">
+                <i [ngClass]="isPlaying ? 'fa-solid fa-pause' : 'fa-solid fa-play'"></i>
+            </button>
+            
+            <button (click)="forwardButton()" class="btn btn-dark btn-lg m-2" style="color:rgba(255, 255, 255, 0.356);">
+                <i class="fa-solid fa-forward"></i>
+            </button>
+            </div>
+        
+        </div>    
+
+    }
+    
+    <!--############################# GUESS HISTORY #############################-->
+    
+    <div class="d-flex flex-column justify-content-center align-items-center" 
+            (mouseenter)="showGuessInfo = true" 
+            (mouseleave)="showGuessInfo = false">
+        <div class="d-flex justify-content-center">
+            <i *ngFor="let id of ids" [id]="id" class="fa-solid fa-square m-2" style="font-size:30px; color:rgba(255, 255, 255, 0.356);"></i>
+        </div>
+    
+        <!-- Liste de Guess -->
+        <div *ngIf="showGuessInfo && guessHistory.length > 0" class="guess-info guess-bg">
+        <a class="dropdown-item" href="#">
+            <div *ngFor="let guess of guessHistory" class="guess-item">
+            <!-- create vertical line left to image, title and date-->
+            <div class="col-auto">
+                <img *ngIf="guess.poster_path.length > 0; else noImage" 
+                    [src]="guess.poster_path" 
+                    alt="{{ guess.original_title }}" 
+                    class="movie-poster" />
+                    <ng-template #noImage>
+                        <div class="no-image-banner">
+                            <span class="no-image-text">None</span>
+                        </div>
+                    </ng-template>
+            </div>
+            <div class="col text-center">
+                <div>
+                <div class="bld-wrt txt-wht text-center">
+                    {{ guess.original_title }}
+                </div>
+                <div class="sm-wrt txt-wht text-center">
+                    {{ guess.release_date }}
+                </div>
+                </div>
+            </div>
+            </div>
+        </a>
+        </div>
+
+        
+    </div>
+    
+    <!--############################# GUESSING FIELD #############################-->
+    @if(!showResult){
+        
+        <div class="d-flex justify-content-center mt-3">
+            <form>
+                <div class="form-row">
+                    <input [(ngModel)]="currentGuess" (input)="onSearch()" id="guess-field" name="currentGuess" class="form-control guess-field" type="text" placeholder="Titre du film" autocomplete="off" required>
+                    <div *ngIf="movies.length > 0" class="d-flex justify-content-center flex-column  align-items-center" style="background-color: #212529; border-radius: 10px; padding: 10px;">
+                        <ul class="dropdown-menu scrollable-dropdown centered-dropdown" style="display: block;">
+                            <li *ngFor="let movie of movies" (click)="onSubmit(movie)">
+                                <a class="dropdown-item">
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <img *ngIf="movie.poster_path.length > 0; else noImage" 
+                                            [src]="movie.poster_path" 
+                                            alt="{{ movie.original_title }}" 
+                                            class="movie-poster" />
+                                            <ng-template #noImage>
+                                                <div class="no-image-banner">
+                                                    <span class="no-image-text">No Image Available</span>
+                                                </div>
+                                            </ng-template>
+                                        </div>
+                                        <div class="col d-flex align-items-center">
+                                            <div class="col">
+                                                <div class="row bld-wrt">
+                                                    {{ movie.original_title }}
+                                                </div>
+                                                <div class="row sm-wrt">
+                                                    {{ movie.media }}
+                                                </div>
+                                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+        
+                    <div class="d-flex justify-content-center col">
+                        <button (click)='onSubmit({tmdbID:0,original_title:"Skipped",release_date:"",overview:"",poster_path:"",mainCast:[],director:"",collection:"", media:""})' class="btn btn-danger btn-lg btn-big m-2" type="button">Get Hint</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+        <!--############################# HINTS #############################-->
+        
+        @if(guessHistory.length > 0){
+                <div class="container d-flex flex-column  align-items-center justify-content-center guess-bg">
+                    <h2 class="txt-wht">Hints :</h2>
+                <div class="d-flex justify-content-center flex-column align-items-center">
+        
+                    <h6 class="mt-2 txt-wht noto-sans-txt">{{guessHistory[0].hint}}</h6>
+                    @if(guessHistory.length > 1){
+                        <p class="mt-2 txt-wht text-center noto-sans-txt">Staring {{guessHistory[1].hint}}</p>
+                    }
+                    @if(guessHistory.length > 2){
+                        <p class="mt-2 txt-wht noto-sans-txt">Directed By {{guessHistory[2].hint}}</p>
+                    }
+                    @if(guessHistory.length > 3){
+                        <p class="mt-2 txt-wht text-center noto-sans-txt" style="font-style: italic">"{{guessHistory[3].hint}}"</p>
+                    }
+                </div>
+            </div>
+        }
+    
+    }
+    
+    <!--############################# RESULTS FIELD #############################-->
+    @else {
+        <div class="container d-flex flex-column  align-items-center justify-content-center answer-bg mt-3">
+            <img *ngIf="answer.poster_path.length > 0; else noImage" 
+                [src]="answer.poster_path" 
+                alt="{{ answer.original_title }}"  
+                class="movie-poster-lg"/>
+                <ng-template #noImage>
+                    <div class="no-image-banner">
+                        <span class="no-image-text">No Image Available</span>
+                    </div>
+                </ng-template>
+                <div class="col d-flex align-items-center">
+                    <div class="col">
+                        <div class="row bld-wrt-answ">
+                            {{ answer.original_title }}
+                        </div>
+                        <div class="row sm-wrt">
+                            {{ answer.media }}
+                        </div>
+                    </div>
+                </div>
+            <!-- Add button to go to next day if exists -->
+            @if (allDays.includes(dayID+1) || allDays.includes(dayID-1)){
+                <div class="d-flex justify-content-center col mt-4 mb-4">
+                    @if(allDays.includes(dayID-1)){
+                        <button (click)="goToPreviousDay()" class="btn btn-dark btn-lg btn-big m-2" type="button">Previous Day</button>
+                    }
+                    @if(allDays.includes(dayID+1)){
+                        <button (click)="goToNextDay()" class="btn btn-dark btn-lg btn-big m-2" type="button">Next Day</button>
+                    }
+                </div>
+            }
+            
+            @if(statsLoaded){
+                <p class="noto-sans-txt">Nombre de parties : {{stats.total}}</p>
+                <p class="noto-sans-txt">Premier guess: {{stats.first_guess}}%</p>
+                <div class="stats"><div class="stats-fill" [style]="{width: stats.first_guess+'%', backgroundColor:'#2DBA61'}"></div></div>
+
+                <p class="noto-sans-txt">Second guess: {{stats.second_guess}}%</p>
+                <div class="stats"><div class="stats-fill" [style]="{width:stats.second_guess+'%', backgroundColor:'#79B83E'}"></div></div>
+
+                <p class="noto-sans-txt">Troisième guess: {{stats.third_guess}}%</p>
+                <div class="stats"><div class="stats-fill" [style]="{width:stats.third_guess+'%', backgroundColor:'#CFAB07'}"></div></div>
+
+                <p class="noto-sans-txt">Quatrième guess: {{stats.fourth_guess}}%</p>
+                <div class="stats"><div class="stats-fill" [style]="{width:stats.fourth_guess}"></div></div>
+
+                <p class="noto-sans-txt">Cinquième guess: {{stats.fifth_guess}}%</p>
+                <div class="stats"><div class="stats-fill" [style]="{width:stats.fifth_guess+'%', backgroundColor:'#D95247 '}"></div></div>
+
+                <p class="noto-sans-txt">Perdu: {{stats.lost}}%</p>
+                <div class="stats"><div class="stats-fill" [style]="{width:stats.lost+'%', backgroundColor: '#BB2D3B'}"></div></div>
+
+            }
+        </div>
+    }
+
+}    

@@ -1,0 +1,15 @@
+.li-bg{
+    background: rgb(26, 25, 25);
+    border-radius:3%;
+    width: 20%;
+    border: solid 1px;
+    border-color: rgb(109, 109, 109);
+    height: 18%;
+}
+
+.vh-center{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+}

@@ -1,0 +1,27 @@
+@if(stylesLoaded){
+    <div class="container d-flex flex-wrap align-items-center justify-content-center mt-3">
+            @for (elem of allDays; track $index; let count = $count){
+                <div class="col-auto d-flex align-items-center justify-content-center" style="width: 100%;"> <!-- Set width to 100% and add flex classes to center child elements -->
+                    <a href="/day/{{$index+1}}" class="d-flex align-items-center justify-content-center" style="width: 40%; text-decoration: none; color: inherit;"> <!-- Set width to 60% and add flex classes -->
+                        <div id={{$index}} class="dark-grey-sq" style="position: relative; display: flex; align-items: center; justify-content: center;">
+                            @if(allProgress[$index+1] != undefined){
+                                <div class="dark-grey-sq-fill align-items-center justify-content-center"  [style]="{width:allProgress[$index+1].fill+'%', 
+                                position: 'absolute', top: 0, left: 0, height: '100%',
+                                backgroundImage: allProgress[$index+1].answer.isRight || allProgress[$index+1].progress.length >=5 ? 'url(' + allProgress[$index+1].answer.poster_path + ')' : 'none',
+                                backgroundColor: allProgress[$index+1].color, 
+                                backgroundPosition: 'center center',
+                                backgroundSize: 'cover',
+                                border: allProgress[$index+1].fill >=100 ? 'solid 3px' : '0px',
+                                borderColor: allProgress[$index+1].color,
+                                borderRadius: allProgress[$index+1].fill >= 100 ? '10px 10px 10px 10px' : '10px 0px 0px 10px'}
+                                "> <!-- Add backgroundPosition: 'center' -->
+                                </div>
+                            }
+                            <p class="noto-sans-txt txt-big" style="position: relative;">{{$index+1}}</p>
+                        </div>
+                    </a>
+                </div>
+            }
+    </div>
+}
+
