@@ -6,6 +6,7 @@ import { AppComponent } from '../../app.component';
 
 @Component({
     selector: 'app-previous',
+    standalone: true,
     imports: [],
     templateUrl: './previous.component.html',
     styleUrl: './previous.component.scss'

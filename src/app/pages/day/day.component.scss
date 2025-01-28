@@ -62,7 +62,8 @@
   }
 
 .txt-wht{
-    color:#ffffff; ;
+    color:#ffffff;
+    word-wrap:break-word;
   }
 
 
@@ -136,6 +137,7 @@
   .text-center {
     text-align: center; /* Centre le texte sous l'image */
     align-items: center;
+    word-wrap:break-word;
   }
 
   .stats{

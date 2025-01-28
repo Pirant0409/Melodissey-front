@@ -1,11 +1,18 @@
 
+    
 <!-- login page with only password field-->
 <div class="d-flex justify-content-center align-items-center vh-center li-bg">
     <div class="container">
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             <h2 style="color:whitesmoke">Login</h2>
+            @if(showMessage){
+                <p-message severity="error" size="small" icon="pi pi-times-circle" styleClass="mb-2 mt-3">Validation Failed</p-message>
+            }
             <div class="form-group my-3">
                 <input type="password" formControlName="password" placeholder="Password" class="form-control" />
+                @if(showMessage){
+                    <p-message severity="error" variant="simple" size="small">{{message}}</p-message>
+                }
             </div>
             <div class="form-group d-flex justify-content-end">
                 <button class="btn btn-primary m-1">Login</button>

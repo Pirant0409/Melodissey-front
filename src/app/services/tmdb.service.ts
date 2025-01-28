@@ -64,13 +64,12 @@ export class TMDBService {
 
   login(password:string): Observable<any> {
     const requestURL=`${this.apiUrl}/admin/login`
-    return this.http.post(requestURL, {password}, { headers: this.headers }).pipe(map((response:any) => {
-      console.log(response)
-      return response;
+    //return response of request or error
+    return this.http.post(requestURL, {password}, { headers: this.headers, observe: 'response' }).pipe(map((response:any) => {
+      return {"token":response.body.token, "status":response.status};
     }),
     catchError((error) => {
-      console.error("DEFD");
-      return of(false);
+      return of({"detail":error.error.detail, "status":error.status})
     }));
   }
 

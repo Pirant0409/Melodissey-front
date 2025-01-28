@@ -1,17 +1,19 @@
 import { Component } from '@angular/core';
 import { TMDBService } from '../../services/tmdb.service';
-import { DaysInterface } from '../../interfaces/days-interface';
+import { DayInterface } from '../../interfaces/day-interface';
 import { RawMoviesInterface } from '../../interfaces/raw-movies-interface';
+import { RouterLink } from '@angular/router';
 
 @Component({
+    standalone: true,
     selector: 'app-days',
-    imports: [],
+    imports: [RouterLink],
     templateUrl: './days.component.html',
     styleUrl: './days.component.scss'
 })
 export class DaysComponent {
 
-  allDays: DaysInterface[] = [];
+  allDays: DayInterface[] = [];
   allMovies: RawMoviesInterface[] = [];
   constructor(private tmdbService:TMDBService) { }
 
@@ -19,10 +21,11 @@ export class DaysComponent {
     this.getAllDays();
     this.getAllMovies();
   }
-
+  
   private getAllDays(): void {
     this.tmdbService.getAllDays().subscribe((days) => {
       this.allDays = days;
+      console.log(this.allDays);
     });
   }
 

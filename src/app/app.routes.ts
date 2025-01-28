@@ -6,6 +6,7 @@ import { LoginComponent } from './adminComponents/login/login.component';
 import { authGuard } from './guards/auth.guard';
 import { MoviesComponent } from './adminComponents/movies/movies.component';
 import { DaysComponent } from './adminComponents/days/days.component';
+import { EditDaysComponent } from './adminComponents/edit-days/edit-days.component';
 
 export const routes: Routes = [
     {path: '', component: PreviousComponent},
@@ -14,6 +15,8 @@ export const routes: Routes = [
     {path: 'admin/login', component: LoginComponent},
     {path: 'admin/days', component: DaysComponent, canActivate: [authGuard]},
     {path: 'admin/movies', component: MoviesComponent, canActivate: [authGuard]},
+    {path: 'admin/days/:id', component: EditDaysComponent, canActivate: [authGuard]},
+    {path: 'admin', redirectTo: 'admin/login'},
     {path: 'admin/:anything', redirectTo: 'admin/login'},
     {path: '**', redirectTo: ''}
 ];

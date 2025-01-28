@@ -1,0 +1,10 @@
+.h-sm-sz{
+    height: 100%;
+    width: 300px;
+    text-decoration: none;
+}
+
+.h-sm-sz:hover{
+    transform: scale(1.1); /* Slightly increase the size */
+    transition: transform 0.3s;
+  }

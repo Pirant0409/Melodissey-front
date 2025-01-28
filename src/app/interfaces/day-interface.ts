@@ -1,4 +1,4 @@
-export interface DaysInterface {
+export interface DayInterface {
     media: "movie" | "tv";
     tmdbID: number;
     id: number;

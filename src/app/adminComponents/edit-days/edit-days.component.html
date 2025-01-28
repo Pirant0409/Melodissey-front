@@ -1,0 +1,57 @@
+<!-- bootstrap form-->
+
+<div class="container txt-wht">
+    <form [formGroup]="editData" (ngSubmit)="onSubmit()" class="d-flex flex-column">
+        <div class="form-group row">
+            <div class="form-group col-auto">
+                <label for="id">Day ID</label>
+                <input  type="text" class="form-control" id="id" formControlName="id" >
+            </div>
+            <div class="form-group col-auto">
+                <label for="tmdbid">TMDB ID</label>
+                <input type="text" class="form-control" id="tmdbid" formControlName="tmdbid">
+            </div>
+            <div class="form-group col-auto">
+                <label for="ytbid">Youtube ID</label>
+                <input type="text" class="form-control" id="ytbid" formControlName="ytbid">
+            </div>
+            <div class="form-group col-auto">
+                <label for="available_date">Available date</label>
+                <input type="text" class="form-control" id="available_date" formControlName="available_date">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="form-group col-md-6">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="title" formControlName="title">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="collection">collection</label>
+                <input type="text" class="form-control" id="collection" formControlName="collection">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="overview">Overview</label>
+            <textarea class="form-control" id="overview" formControlName="overview"></textarea>
+        </div>
+        <div class="form-group row">
+            <div class="form-group col-auto">
+                <label for="actor1">First actor</label>
+                <input type="text" class="form-control" id="actor1" formControlName="actor1">
+            </div>
+            <div class="form-group col-auto">
+                <label for="actor2">Second actor</label>
+                <input type="text" class="form-control" id="actor2" formControlName="actor2">
+            </div>
+            <div class="form-group col-auto">
+                <label for="actor3">Third actor</label>
+                <input type="text" class="form-control" id="actor3" formControlName="actor3">
+            </div>
+            <div class="form-group col-auto">
+                <label for="director">Director</label>
+                <input type="text" class="form-control" id="director" formControlName="director">
+            </div>
+        </div> <!-- Close the form-row div here -->
+        <button type="submit" class="btn btn-primary ml-auto mt-3">Submit</button>
+    </form>
+</div>
