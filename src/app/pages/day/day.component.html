@@ -71,7 +71,7 @@
         <div class="d-flex justify-content-center mt-3">
             <form>
                 <div class="form-row">
-                    <input [(ngModel)]="currentGuess" (input)="onSearch()" id="guess-field" name="currentGuess" class="form-control guess-field" type="text" placeholder="Titre du film" autocomplete="off" required>
+                    <input [(ngModel)]="currentGuess" (input)="onSearch()" id="guess-field" name="currentGuess" class="form-control guess-field" type="text" placeholder="Movie's title" autocomplete="off" required>
                     <div *ngIf="movies.length > 0" class="d-flex justify-content-center flex-column  align-items-center" style="background-color: #212529; border-radius: 10px; padding: 10px;">
                         <ul class="dropdown-menu scrollable-dropdown centered-dropdown" style="display: block;">
                             <li *ngFor="let movie of movies" (click)="onSubmit(movie)">
@@ -158,7 +158,7 @@
                     </div>
                 </div>
             <!-- Add button to go to next day if exists -->
-            @if (allDays.includes(dayID+1) || allDays.includes(dayID-1)){
+            @if ((allDays.includes(dayID+1) || allDays.includes(dayID-1)) && roomType=="day"){
                 <div class="d-flex justify-content-center col mt-4 mb-4">
                     @if(allDays.includes(dayID-1)){
                         <button (click)="goToPreviousDay()" class="btn btn-dark btn-lg btn-big m-2" type="button">Previous Day</button>

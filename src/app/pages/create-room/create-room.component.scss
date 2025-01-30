@@ -1,0 +1,160 @@
+.form-bg{
+    background-color: #fffffd;
+    font-size: large;
+    font-weight: 500;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+  }  
+
+  @import "primeicons/primeicons.css";
+
+  .hidden{
+      display:none;
+  }
+  
+  .movie-poster {
+      width: 50px;  /* Ajuste la taille de l'image selon tes préférences */
+      height: 75px;
+      border-radius: 4px;
+    }
+  
+  .movie-poster-lg {
+    width: 200px;
+    height:auto;
+    border-radius: 8px;
+    margin:5px;
+  }
+  
+  .scrollable-dropdown {
+    max-height: 300px; /* Définit la hauteur maximale de la dropdown */
+    max-width: 500px;;
+    overflow-y: auto; /* Active le défilement vertical si le contenu dépasse */
+  }
+  
+  
+  .sm-wrt{
+      font-size:small;
+  }
+  
+  .bld-wrt{
+      font-weight: bold;
+  }
+  
+  .bld-wrt-answ{
+    font-size: 25px;
+    font-weight: bold;
+  }
+  .guess-field{
+      width:400px; 
+      height:50px; 
+      background-color: #212529; 
+      border-color: #113d3de7;
+      outline-color: #255252;
+      outline: none;
+      &::placeholder {
+          color: #cbd1d1;
+          font-weight: bold;
+      }
+      color: #cbd1d1;
+      font-weight: bold;
+  }
+  
+  .guess-field:focus{
+      border-color: #0a2424e7;
+      box-shadow: 0 0 15px #40c9c9;
+    }
+  
+  .txt-wht{
+      color:#ffffff;
+      word-wrap:break-word;
+    }
+  
+  .guess-info {
+    display: flex;              /* Affichage des éléments en ligne */
+    justify-content: flex-start; /* Aligner les éléments à gauche */
+    gap: 1rem;                  /* Espacement entre les éléments */
+    flex-wrap: nowrap;          /* Ne pas permettre un retour à la ligne */
+    width: fit-content;                /* Prendre toute la largeur disponible */
+  }
+  
+  .dropdown-item {
+    display: inline-flex;      /* Force un comportement en ligne */
+    flex-direction: row;       /* S'assurer que les éléments à l'intérieur s'affichent horizontalement */
+  }
+  .guess-item {
+    display: flex;
+    flex-direction: column; /* Organise le contenu de chaque élément en colonne */
+    align-items: center; /* Centrer les éléments à l'intérieur */
+    max-width: 200px; /* Vous pouvez ajuster la largeur max des éléments *//* Si vous souhaitez un fond pour chaque élément */
+    padding: 1rem; /* Espace interne pour les éléments */
+  }
+  
+  .vl {
+    border-left: 1px solid #cbd1d1; /* Largeur et couleur de la ligne */
+    height: 100%; /* S'assurer que la ligne couvre toute la hauteur du conteneur parent */
+  }
+  
+    .no-image-banner {
+      background-color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 16px;
+      text-align: center;
+      width: 50px;  /* Ajuste la taille de l'image selon tes préférences */
+      height: 75px;
+      /* Espace entre l'image et le titre */
+      border-radius: 4px;
+    }
+    
+    .no-image-text {
+      font-weight: bold;
+    }
+  
+    .guess-bg{
+      background-color: hsl(0, 0%, 100%,0.02);
+      border-radius: 10px; 
+      padding: 10px;
+      backdrop-filter: blur(10px);
+      max-width: 700px;
+    }
+    .answer-bg{
+      background-color: hsl(0, 0%, 100%,0.02);
+      border-radius: 6px; 
+      padding: 10px;
+      margin-bottom: 20px;
+      width:fit-content;
+      min-width: 40%;
+      background-repeat: no-repeat;
+      color:white
+    }
+  
+    .playbtn{
+      width:70px;
+      height:70px;
+    }
+  
+    .text-center {
+      text-align: center; /* Centre le texte sous l'image */
+      align-items: center;
+      word-wrap:break-word;
+    }
+  
+    .stats{
+      width: 80%;
+      height: 5px;
+      background-color: #cbd1d1;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+  
+    .stats-fill{
+      height: 5px;
+      border-radius: 10px;
+    }
+  
+    .btn-big{
+      width: 200px;
+    }

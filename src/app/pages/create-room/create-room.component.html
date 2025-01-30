@@ -1,0 +1,101 @@
+<!--
+<p-dialog header="Comfirm modifications" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+    <div>
+        @for(element of objectKeys(differences); track element){
+            <p>{{element}}: {{allBaseData[element]}} ==> {{differences[element]}}</p>
+        }
+        <button type="button" class="btn btn-success" (click)="onSubmit(true)">Confirm</button>
+        <button type="button" class="btn btn-danger mx-2" (click)="visible = false">Cancel</button>
+    </div>
+</p-dialog> -->
+
+<div class="container form-bg">
+    @if(showMessage){
+        <p-message severity={{severity}} size="large" [closable]="true" (onClose)="showMessage=false" icon={{primeIcon}} styleClass="mb-4 mt-2">{{message}}</p-message>
+    }
+    @if (roomID == null){
+        <form [formGroup]="roomData" (ngSubmit)="onSubmit()" class="d-flex flex-column">
+            <h1>Game info</h1>
+            <hr class="mt-1 mb-4 w-100">
+            <div class="form-group row mb-4">
+                <div class="form-group col-md-6">
+                    <label for="ytbid">Movie's theme youtube video ID</label>
+                    <input  type="text" class="form-control" (input)="getYTBIframe()" id="ytbid" formControlName="ytbid" placeholder="dQw4w9WgXcQ">
+                    @if(showYTBIDMessage){
+                        <p-message severity="error" variant="simple" size="small">
+                            Youtube video not found. Make sure that :
+                            <ul>
+                                <li>The ID is correct (should be 11 char long).</li>
+                                <li>The video is neither private or deleted.</li>
+                            </ul>
+                        </p-message>
+                    }
+                </div>
+            </div>
+            <div id="player" class="justify-content-center mb-4" style="margin:auto;"></div>
+            <div class="form-group row">
+                <div class="form-group col-md-6">
+                    <label for="original_title">Movie title</label>
+                    <input type="text" (input)="getMovie()" class="form-control" id="original_title" formControlName="original_title">
+                    <ul *ngIf="movies.length > 0" class="dropdown-menu scrollable-dropdown centered-dropdown" style="display: block;">
+                        <li *ngFor="let movie of movies" (click)="onMovieClick(movie)">
+                            <a class="dropdown-item">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <img *ngIf="movie.poster_path.length > 0; else noImage" 
+                                        [src]="movie.poster_path" 
+                                        alt="{{ movie.original_title }}" 
+                                        class="movie-poster" />
+                                        <ng-template #noImage>
+                                            <div class="no-image-banner">
+                                                <span class="no-image-text">No Image Available</span>
+                                            </div>
+                                        </ng-template>
+                                    </div>
+                                    <div class="col d-flex align-items-center">
+                                        <div class="col">
+                                            <div class="row bld-wrt" style="word-wrap: break-word; white-space: pre-wrap;">
+                                                {{ movie.original_title }}
+                                            </div>
+                                            <div class="row sm-wrt">
+                                                {{ movie.media }}
+                                            </div>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group mt-3">
+                <div class="form-group col-auto">
+                    <label for="hint1">First hint</label>
+                    <textarea type="text" class="form-control" id="hint1" formControlName="hint1"></textarea>
+                </div>
+                <div class="form-group col-auto">
+                    <label for="hint2">Second hint</label>
+                    <textarea type="text" class="form-control" id="hint2" formControlName="hint2"></textarea>
+                </div>
+                <div class="form-group col-auto">
+                    <label for="hint3">Third hint</label>
+                    <textarea type="text" class="form-control" id="hint3" formControlName="hint3"></textarea>
+                </div>
+                <div class="form-group col-auto">
+                    <label for="hint4">Fourth hint</label>
+                    <textarea type="text" class="form-control" id="hint4" formControlName="hint4"></textarea>
+                </div>
+            </div> <!-- Close the form-row div here -->
+            <button type="submit" class="btn btn-primary btn-lg btn-center mt-4" [disabled]="roomData.pristine">Create room</button>
+        </form>
+    }
+    @else{
+        <div class="d-flex flex-column align-items-center">
+            <h1>Room created</h1>
+            <p>Room URL:</p>
+            <p>http://localhost:4200/room/{{roomID}} <i (click)="copyLink()" class="pi pi-clone" style="margin-left:5px; cursor: pointer;"></i></p>
+            <button type="button" class="btn btn-primary mt-3" (click)="goToRoom()">Go to room</button>
+        </div>
+    }
+</div>

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, HostListener, OnInit} from '@angular/core';
+import { Component, HostListener, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common'
 import {FormsModule} from '@angular/forms';
 import {GuessHistoryInterface} from '../../interfaces/guess-history-interface';
@@ -6,7 +6,6 @@ import { TMDBService } from '../../services/tmdb.service';
 import { MovieInterface } from '../../interfaces/movie-interface';
 import { AppComponent } from '../../app.component';
 import { IdbService } from '../../services/idb.service';
-import { Subscription } from 'rxjs';
 import { StatsInterface } from '../../interfaces/stats-interface';
 
 @Component({
@@ -37,9 +36,12 @@ export class DayComponent implements OnInit{
   statsLoaded:boolean = false;
 
   //###### data variables ######
+  roomType="day";
   isGOD: boolean = false;
   allDays: number[]=[];
   dayID: number = 0;
+  allRooms: string[]=[];
+  roomID: string = "";
   movies:MovieInterface[] = []
   currentGuess: string = "";
   guessHistory: GuessHistoryInterface[]=[];
@@ -52,7 +54,19 @@ export class DayComponent implements OnInit{
   }
   
   ngOnInit(): void {
-    this.getDayID();
+    console.log("init")
+    if (window.location.href.includes("day")){
+      this.roomType = "day";
+      this.getDayID();
+    }
+    else if (window.location.href.includes("room")){
+      console.log("room detected")
+      this.roomType = "room";
+      this.getRoomID();
+    }
+    else{
+      window.location.href = ""
+    }
     this.setupMaxTime(this.guessHistory.length);
   }
 
@@ -81,77 +95,117 @@ export class DayComponent implements OnInit{
     }
     
     
-    @HostListener('document:click', ['$event'])
-    onDocumentClick(event: MouseEvent) {
-      // Vérifier si l'élément cliqué est à l'extérieur du champ de texte et de la liste déroulante
-      const clickedInsideInputField = event.target instanceof HTMLElement && event.target.closest('.form-control');
-      const clickedInsideDropdown = event.target instanceof HTMLElement && event.target.closest('.dropdown-menu');
-      if (!clickedInsideInputField && !clickedInsideDropdown) {
-        this.movies = [];
-      }
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    // Vérifier si l'élément cliqué est à l'extérieur du champ de texte et de la liste déroulante
+    const clickedInsideInputField = event.target instanceof HTMLElement && event.target.closest('.form-control');
+    const clickedInsideDropdown = event.target instanceof HTMLElement && event.target.closest('.dropdown-menu');
+    if (!clickedInsideInputField && !clickedInsideDropdown) {
+      this.movies = [];
     }
+  }
 
 
 
-    //########################################    GAME INIT    ########################################
+  //########################################    GAME INIT    ########################################
 
 
-    private async loadProgress(){
-      this.progress = await this.idbService.getProgress(this.dayID);
-      console.log(this.dayID)
-      console.log(this.progress)
-      if (this.progress !== undefined){
-        const savedProgression = this.progress["progress"];
-        const savedAnswer = this.progress["answer"];
-        this.progressRestored = true;
-        this.restoreProgress(savedProgression,savedAnswer)
-        
-      }
-    }
-
-    private restoreProgress(savedProgression:GuessHistoryInterface[],answer:GuessHistoryInterface){
-      if (answer.original_title != ""){
-        this.answer = answer;
-      }
-      savedProgression.forEach((guess,index) => {
-        this.updateGuessHistory(guess,index,true)
-      })
-    }
-    
-
-    private getDayID(){
-      //store current url location in const
-      //get the last number from the url
-      //set this.currentDay to the number
+  private async loadProgress(){
+    this.progress = await this.idbService.getProgress(this.dayID);
+    console.log(this.dayID)
+    console.log(this.progress)
+    if (this.progress !== undefined){
+      const savedProgression = this.progress["progress"];
+      const savedAnswer = this.progress["answer"];
+      this.progressRestored = true;
+      this.restoreProgress(savedProgression,savedAnswer)
       
-      const url = window.location.href;
-      const urlParams = url.split('/day/');
-      const urlID = urlParams[1].split ('?');
-      this.dayID = parseInt(urlID[0]);
-      this.tmdbService.getAllids().subscribe({
-        next: (response) => {
-          this.allDays=response;
-          const idOfTheDay = this.allDays[this.allDays.length-1]
-          if (idOfTheDay == this.dayID){
-            this.isGOD = true;
-          }
-          if (!this.allDays.includes(this.dayID)){
-            window.location.href = ""
-          }
-          else{
-            this.getGameData(this.dayID)
-          }
-          this.appComponent.changeActiveTab(this.isGOD);
-        },
-        error: (error) => {
-          console.log(error)
-        }
-      })
     }
+  }
+
+  private restoreProgress(savedProgression:GuessHistoryInterface[],answer:GuessHistoryInterface){
+    if (answer.original_title != ""){
+      this.answer = answer;
+    }
+    savedProgression.forEach((guess,index) => {
+      this.updateGuessHistory(guess,index,true)
+    })
+  }
+  
+
+  private getDayID(){
+    //store current url location in const
+    //get the last number from the url
+    //set this.currentDay to the number
+    
+    const url = window.location.href;
+    const urlParams = url.split('/day/');
+    const urlID = urlParams[1].split ('?');
+    this.dayID = parseInt(urlID[0]);
+    this.tmdbService.getAllids().subscribe({
+      next: (response) => {
+        this.allDays=response;
+        const idOfTheDay = this.allDays[this.allDays.length-1]
+        if (idOfTheDay == this.dayID){
+          this.isGOD = true;
+        }
+        if (!this.allDays.includes(this.dayID)){
+          window.location.href = ""
+        }
+        else{
+          this.getGameData(this.dayID)
+        }
+        this.appComponent.changeActiveTab(this.isGOD);
+      },
+      error: (error) => {
+        console.log(error)
+      }
+    })
+  }
+
+  private getRoomID(){
+    //store current url location in const
+    //get the last number from the url
+    //set this.currentDay to the number
+    console.log("getRoomID")
+    const url = window.location.href;
+    const urlParams = url.split('/room/');
+    const urlID = urlParams[1].split ('?');
+    this.roomID = urlID[0];
+    this.tmdbService.getAllRoomids().subscribe({
+      next: (response) => {
+        this.allRooms=response;
+        if (!this.allRooms.includes(this.roomID)){
+          console.log("room not found")
+          window.location.href = ""
+        }
+        else{
+          console.log("room found")
+          this.getRoomData(this.roomID)
+        }
+      },
+      error: (error) => {
+        console.log(error)
+      }
+    })
+  }
 
   private getGameData(dayID:number){
     this.dataLoaded = true;
     this.tmdbService.getYTBid(dayID).subscribe({
+      next: (response) => {
+        this.ytbID = response.ytbID;
+        this.loadYTBPlayer();
+      },
+      error: (error) => {
+        console.log(error)
+      }
+    })
+  }
+
+  private getRoomData(roomID:string){
+    this.dataLoaded = true;
+    this.tmdbService.getRoomYTBid(roomID).subscribe({
       next: (response) => {
         this.ytbID = response.ytbID;
         this.loadYTBPlayer();

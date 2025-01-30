@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { forkJoin, Observable, of } from 'rxjs';
 import { MovieInterface } from '../interfaces/movie-interface';
 import { map, switchMap, catchError } from 'rxjs/operators';
+import { DayInterface } from '../interfaces/day-interface';
+import { RawMoviesInterface } from '../interfaces/raw-movies-interface';
 
 @Injectable({
   providedIn: 'root'
@@ -30,10 +32,24 @@ export class TMDBService {
       return response;
       });
     };
-
+  
+  getAllRoomids(): Observable<string[]> {
+    const requestURL = `${this.apiUrl}/rooms`
+    console.log("ahbon")
+    return this.http.get<string[]>(requestURL, { headers: this.headers }).pipe(response => {
+      return response;
+      });
+  }
 
   getYTBid(dayID:number): Observable<any> {
     const requestURL=`${this.apiUrl}/days/${dayID}`
+    return this.http.get(requestURL, { headers: this.headers }).pipe(map((response:any) => {
+      return response;
+    }))
+  }
+
+  getRoomYTBid(roomID:string): Observable<any> {
+    const requestURL=`${this.apiUrl}/rooms/${roomID}`
     return this.http.get(requestURL, { headers: this.headers }).pipe(map((response:any) => {
       return response;
     }))
@@ -101,7 +117,7 @@ export class TMDBService {
 
     const requestURL = `${this.apiUrl}/allDays`
     this.headers = this.headers.set('Authorization', `Bearer ${token}`);
-    return this.http.get(requestURL, { headers: this.headers }).pipe(response => {
+    return this.http.get(requestURL, { headers: this.headers, }).pipe(response => {
       return response;
     });
   }
@@ -120,5 +136,44 @@ export class TMDBService {
     });
   }
 
+  updateDay(newDay: DayInterface): Observable<any> {
+    const token = localStorage.getItem('token');
+    if(!token){
+      return of(false);      
+    }
+    this.headers = this.headers.set('Authorization', `Bearer ${token}`);
+    const requestURL = `${this.apiUrl}/days/`
+    return this.http.put(requestURL, JSON.stringify(newDay), { headers: this.headers, observe: 'response'  }).pipe(map((response:any) => {
+      return {"detail": response.body.detail, "status": response.status};
+    }),
+    catchError((error) => {
+      return of({"detail":error.error.detail, "status":error.status});
+    }));
+  }
 
+  updateMovie(newMovie: RawMoviesInterface): Observable<any> {
+    const token = localStorage.getItem('token');
+    if(!token){
+      return of(false);      
+    }
+    this.headers = this.headers.set('Authorization', `Bearer ${token}`);
+    const requestURL = `${this.apiUrl}/movies/`
+    return this.http.put(requestURL, JSON.stringify(newMovie), { headers: this.headers, observe: 'response'  }).pipe(map((response:any) => {
+      return {"detail": response.body.detail, "status": response.status};
+    }),
+    catchError((error) => {
+      return of({"detail":error.error.detail, "status":error.status});
+    }));
+  }
+
+  createRoom(roomData:any): Observable<any> {
+    const requestURL = `${this.apiUrl}/createRoom/`
+    return this.http.post(requestURL, JSON.stringify(roomData), { headers: this.headers, observe: 'response'  }).pipe(map((response:any) => {
+      return {"detail": response.body.detail,"roomID": response.body.roomID, "status": response.status};
+    }),
+    catchError((error) => {
+      console.log(error.error.detail)
+      return of({"detail":error.error.detail, "status":error.status});
+    }));
+  }
 }

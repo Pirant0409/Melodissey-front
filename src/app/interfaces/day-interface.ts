@@ -1,6 +1,6 @@
 export interface DayInterface {
     media: "movie" | "tv";
-    tmdbID: number;
+    tmdbid: number;
     id: number;
     ytbid: string;
     available_date: string;

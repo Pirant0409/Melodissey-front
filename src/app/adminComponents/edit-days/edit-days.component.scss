@@ -1,4 +1,17 @@
-.txt-wht{
-    color:#ffffff;
-    word-wrap:break-word;
-  }
+.form-bg{
+  background-color: #fffffd;
+  font-size: large;
+  font-weight: 500;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+}  
+
+.btn-center{
+  width: fit-content;
+  margin: auto;
+}
+
+input, textarea, label,select{
+  font-size:larger;
+}

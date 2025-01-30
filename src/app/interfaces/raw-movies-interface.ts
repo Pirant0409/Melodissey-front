@@ -1,6 +1,6 @@
 export interface RawMoviesInterface {
     original_title: string;
-    tmdbID: number;
+    tmdbid: number;
     media: "movie" | "tv";
     overview: string;
     actor1: string | null;

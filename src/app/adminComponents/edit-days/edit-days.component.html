@@ -1,7 +1,21 @@
 <!-- bootstrap form-->
+<p-dialog header="Comfirm modifications" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+    <div>
+        @for(element of objectKeys(differences); track element){
+            <p>{{element}}: {{allBaseData[element]}} ==> {{differences[element]}}</p>
+        }
+        <button type="button" class="btn btn-success" (click)="onSubmit(true)">Confirm</button>
+        <button type="button" class="btn btn-danger mx-2" (click)="visible = false">Cancel</button>
+    </div>
+</p-dialog>
 
-<div class="container txt-wht">
-    <form [formGroup]="editData" (ngSubmit)="onSubmit()" class="d-flex flex-column">
+<div class="container form-bg">
+    <form [formGroup]="editData" (ngSubmit)="onSubmit(false)" class="d-flex flex-column">
+        @if(showMessage){
+            <p-message severity={{severity}} size="large" [closable]="true" (onClose)="showMessage=false" icon={{primeIcon}} styleClass="mb-2 mt-3">{{message}}</p-message>
+        }
+        <h1>Day info</h1>
+        <hr class="mt-1 mb-4 w-100">
         <div class="form-group row">
             <div class="form-group col-auto">
                 <label for="id">Day ID</label>
@@ -20,17 +34,28 @@
                 <input type="text" class="form-control" id="available_date" formControlName="available_date">
             </div>
         </div>
+        <h1 class="mt-4">Movie info</h1>
+        <hr class="mt-1 w-100">
         <div class="form-group row">
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-6 mb-3">
                 <label for="title">Title</label>
                 <input type="text" class="form-control" id="title" formControlName="title">
             </div>
             <div class="form-group col-md-6">
-                <label for="collection">collection</label>
+                <label for="collection">Collection</label>
                 <input type="text" class="form-control" id="collection" formControlName="collection">
             </div>
+            <div class="form-group col-md-6 mb-3">
+                <label for="media">Media</label>
+                <select class="form-control form-control-sm" formControlName="media" id="media">
+                    <option>TV</option>
+                    <option>Movie</option>
+                  </select>
+            </div>
         </div>
-        <div class="form-group">
+        <h1>Hints</h1>
+        <hr class="mt-1 w-100">
+        <div class="form-group mb-3">
             <label for="overview">Overview</label>
             <textarea class="form-control" id="overview" formControlName="overview"></textarea>
         </div>
@@ -52,6 +77,6 @@
                 <input type="text" class="form-control" id="director" formControlName="director">
             </div>
         </div> <!-- Close the form-row div here -->
-        <button type="submit" class="btn btn-primary ml-auto mt-3">Submit</button>
+        <button type="submit" class="btn btn-primary btn-lg btn-center mt-4" [disabled]="editData.pristine">Save changes</button>
     </form>
 </div>
