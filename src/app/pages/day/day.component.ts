@@ -24,6 +24,7 @@ export class DayComponent implements OnInit{
   private timer: any;
   private ytbID: string = "";
   private progress : any;
+  private currentTime: number = 0;
   
   //###### display variables ######
   progressRestored: boolean = false;
@@ -263,7 +264,7 @@ export class DayComponent implements OnInit{
           else{
             fullGuess.hint = response.hint
           }
-          if(response.collection){
+          if(response.collection && response.collection != "None"){
             fullGuess.isSameCollection = true
           }
           if(historyLength == 4 ){
@@ -285,12 +286,9 @@ export class DayComponent implements OnInit{
     private updateGuessHistory(guess:GuessHistoryInterface, historyLength:number, isRestored:boolean = false){
       const guessSquare = document.getElementById(this.ids[historyLength]) as HTMLDivElement;
       this.guessHistory.push(guess);
-      if(guess.isRight){
+      if(guess.isRight || guess.isSameCollection){
         guessSquare.style.color = "#2DBA61";
         this.answer = guess;
-      }
-      else if(guess.isSameCollection){
-        guessSquare.style.color = "rgb(207, 171, 7)";
       }
       else{
         guessSquare.style.color = "#BB2D3B";
@@ -337,15 +335,15 @@ export class DayComponent implements OnInit{
     
     private startTimer(): void {
       if (this.maxTime != 9999){
-        let currentTime = this.player.getCurrentTime();
+        this.currentTime = this.player.getCurrentTime();
         // Vérifie la position de la vidéo toutes les 1000 ms (1 seconde)
         this.timer = setInterval(() => {
-          console.log(currentTime)
-          if (currentTime >= this.maxTime) {
+          console.log(this.currentTime)
+          if (this.currentTime >= this.maxTime) {
             this.player.seekTo(0, true); // Reviens à 0
             this.onPlayButtonClicked()
           }
-          currentTime += 0.5
+          this.currentTime += 0.5
         }, 500); // Vérification chaque seconde
 
       }
@@ -403,6 +401,7 @@ export class DayComponent implements OnInit{
         this.player.seekTo(this.maxTime,true)
       }
       else{
+        this.currentTime += seconds;
         this.player.seekTo(this.player.getCurrentTime()+seconds,true)
 
       }

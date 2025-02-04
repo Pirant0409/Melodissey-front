@@ -66,7 +66,8 @@ export class PreviousComponent implements OnInit{
         else{
           for(let progress of this.allProgress[dayID]["progress"]){
             if (progress.isSameCollection){
-              this.allProgress[dayID]["color"]= "\#CFAB07"
+              this.allProgress[dayID]["color"]= "\#2DBA61"
+              this.allProgress[dayID]["fill"]= 100
               break;
             }
             else{
