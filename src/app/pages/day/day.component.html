@@ -119,12 +119,12 @@
                     <h2 class="txt-wht">Hints :</h2>
                 <div class="d-flex justify-content-center flex-column align-items-center">
         
-                    <h6 class="mt-2 txt-wht noto-sans-txt">{{guessHistory[0].hint}}</h6>
+                    <h6 class="mt-2 txt-wht noto-sans-txt">@if(roomType =="day"){Media: }{{guessHistory[0].hint}}</h6>
                     @if(guessHistory.length > 1){
-                        <p class="mt-2 txt-wht text-center noto-sans-txt">Staring {{guessHistory[1].hint}}</p>
+                        <p class="mt-2 txt-wht text-center noto-sans-txt">@if(roomType == "day"){Staring }{{guessHistory[1].hint}}</p>
                     }
                     @if(guessHistory.length > 2){
-                        <p class="mt-2 txt-wht noto-sans-txt">Directed By {{guessHistory[2].hint}}</p>
+                        <p class="mt-2 txt-wht noto-sans-txt">@if(roomType == "day"){Directed By }{{guessHistory[2].hint}}</p>
                     }
                     @if(guessHistory.length > 3){
                         <p class="mt-2 txt-wht text-center noto-sans-txt" style="font-style: italic">"{{guessHistory[3].hint}}"</p>
@@ -181,7 +181,7 @@
                 <div class="stats"><div class="stats-fill" [style]="{width:stats.third_guess+'%', backgroundColor:'#CFAB07'}"></div></div>
 
                 <p class="noto-sans-txt">Quatrième guess: {{stats.fourth_guess}}%</p>
-                <div class="stats"><div class="stats-fill" [style]="{width:stats.fourth_guess}"></div></div>
+                <div class="stats"><div class="stats-fill" [style]="{width:stats.fourth_guess+'%', backgroundColor:'#D47F27'}"></div></div>
 
                 <p class="noto-sans-txt">Cinquième guess: {{stats.fifth_guess}}%</p>
                 <div class="stats"><div class="stats-fill" [style]="{width:stats.fifth_guess+'%', backgroundColor:'#D95247 '}"></div></div>

@@ -35,7 +35,6 @@ export class TMDBService {
   
   getAllRoomids(): Observable<string[]> {
     const requestURL = `${this.apiUrl}/rooms`
-    console.log("ahbon")
     return this.http.get<string[]>(requestURL, { headers: this.headers }).pipe(response => {
       return response;
       });
@@ -58,6 +57,15 @@ export class TMDBService {
   sendGuess(dayID:number, guess:MovieInterface,hint:number): Observable<any> {
     const params=`?media=${guess.media}&tmdbid=${guess.tmdbID}&collection=${guess.collection}&hint=${hint}`
     const requestURL=`${this.apiUrl}/check/${dayID}${params}`
+    console.log(requestURL)
+    return this.http.get(requestURL, { headers: this.headers }).pipe(map((response:any) => {
+      return response;
+    }))
+  }
+
+  sendRoomGuess(roomID:string, guess:MovieInterface,hint:number): Observable<any> {
+    const params=`?media=${guess.media}&tmdbid=${guess.tmdbID}&collection=${guess.collection}&hint=${hint}`
+    const requestURL=`${this.apiUrl}/checkRoom/${roomID}${params}`
     console.log(requestURL)
     return this.http.get(requestURL, { headers: this.headers }).pipe(map((response:any) => {
       return response;

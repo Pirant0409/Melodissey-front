@@ -61,12 +61,10 @@ export class DayComponent implements OnInit{
       this.getDayID();
     }
     else if (window.location.href.includes("room")){
-      console.log("room detected")
+      console.log("ICI LA")
       this.roomType = "room";
+      console.log(this.roomType)
       this.getRoomID();
-    }
-    else{
-      window.location.href = ""
     }
     this.setupMaxTime(this.guessHistory.length);
   }
@@ -112,25 +110,30 @@ export class DayComponent implements OnInit{
 
 
   private async loadProgress(){
-    this.progress = await this.idbService.getProgress(this.dayID);
-    console.log(this.dayID)
-    console.log(this.progress)
-    if (this.progress !== undefined){
-      const savedProgression = this.progress["progress"];
-      const savedAnswer = this.progress["answer"];
-      this.progressRestored = true;
-      this.restoreProgress(savedProgression,savedAnswer)
-      
+    if (this.roomType == "day"){
+      this.progress = await this.idbService.getProgress(this.dayID);
+      console.log(this.dayID)
+      console.log(this.progress)
+      if (this.progress !== undefined){
+        const savedProgression = this.progress["progress"];
+        const savedAnswer = this.progress["answer"];
+        this.progressRestored = true;
+        this.restoreProgress(savedProgression,savedAnswer)
+        
+      }
+
     }
   }
 
   private restoreProgress(savedProgression:GuessHistoryInterface[],answer:GuessHistoryInterface){
-    if (answer.original_title != ""){
-      this.answer = answer;
+    if (this.roomType == "day"){
+      if (answer.original_title != ""){
+        this.answer = answer;
+      }
+      savedProgression.forEach((guess,index) => {
+        this.updateGuessHistory(guess,index,true)
+      })
     }
-    savedProgression.forEach((guess,index) => {
-      this.updateGuessHistory(guess,index,true)
-    })
   }
   
 
@@ -168,20 +171,18 @@ export class DayComponent implements OnInit{
     //store current url location in const
     //get the last number from the url
     //set this.currentDay to the number
-    console.log("getRoomID")
     const url = window.location.href;
     const urlParams = url.split('/room/');
     const urlID = urlParams[1].split ('?');
     this.roomID = urlID[0];
+    //TODO : Je récupère tous les ID, pe plutot vérifier dans le back pour eviter de donner l'accès a toutes
     this.tmdbService.getAllRoomids().subscribe({
       next: (response) => {
         this.allRooms=response;
         if (!this.allRooms.includes(this.roomID)){
-          console.log("room not found")
           window.location.href = ""
         }
         else{
-          console.log("room found")
           this.getRoomData(this.roomID)
         }
       },
@@ -244,6 +245,7 @@ export class DayComponent implements OnInit{
     
     private processGuess(guess: MovieInterface){
       const historyLength = this.guessHistory.length;
+      console.log(this.roomType)
 
       let fullGuess:GuessHistoryInterface = {original_title:guess.original_title,
                                              tmdbID:guess.tmdbID,
@@ -252,34 +254,69 @@ export class DayComponent implements OnInit{
                                              poster_path:guess.poster_path,
                                              release_date:guess.release_date,
                                              media:guess.media,hint:""}
-      this.tmdbService.sendGuess(this.dayID,guess,historyLength).subscribe({
-        next: (response) => {
-          if(response.isRight){
-            fullGuess.isRight = response.isRight
-            fullGuess.original_title = response.original_title
-            fullGuess.release_date = response.release_date
-            fullGuess.poster_path = response.poster_path
-            fullGuess.media = response.media
+      if (this.roomType == "day"){
+        this.tmdbService.sendGuess(this.dayID,guess,historyLength).subscribe({
+          next: (response) => {
+            if(response.isRight){
+              fullGuess.isRight = response.isRight
+              fullGuess.original_title = response.original_title
+              fullGuess.release_date = response.release_date
+              fullGuess.poster_path = response.poster_path
+              fullGuess.media = response.media
+            }
+            else{
+              fullGuess.hint = response.hint
+            }
+            if(response.collection && response.collection != "None"){
+              fullGuess.isSameCollection = true
+            }
+            if(historyLength == 4 ){
+              this.answer.isRight = response.isRight
+              this.answer.original_title = response.original_title
+              this.answer.release_date = response.release_date
+              this.answer.poster_path = response.poster_path
+              this.answer.media = response.media
+            }
+            this.updateGuessHistory(fullGuess,historyLength)
+          },
+          error: (error) => {
+            console.log(error)
           }
-          else{
-            fullGuess.hint = response.hint
+        })
+
+      }
+
+      else if (this.roomType == "room"){
+        this.tmdbService.sendRoomGuess(this.roomID,guess,historyLength).subscribe({
+          next: (response) => {
+            if(response.isRight){
+              fullGuess.isRight = response.isRight
+              fullGuess.original_title = response.original_title
+              fullGuess.release_date = response.release_date
+              fullGuess.poster_path = response.poster_path
+              fullGuess.media = response.media
+            }
+            else{
+              fullGuess.hint = response.hint
+            }
+            if(response.collection && response.collection != "None"){
+              fullGuess.isSameCollection = true
+            }
+            if(historyLength == 4 ){
+              this.answer.isRight = response.isRight
+              this.answer.original_title = response.original_title
+              this.answer.release_date = response.release_date
+              this.answer.poster_path = response.poster_path
+              this.answer.media = response.media
+            }
+            this.updateGuessHistory(fullGuess,historyLength)
+          },
+          error: (error) => {
+            console.log(error)
           }
-          if(response.collection && response.collection != "None"){
-            fullGuess.isSameCollection = true
-          }
-          if(historyLength == 4 ){
-            this.answer.isRight = response.isRight
-            this.answer.original_title = response.original_title
-            this.answer.release_date = response.release_date
-            this.answer.poster_path = response.poster_path
-            this.answer.media = response.media
-          }
-          this.updateGuessHistory(fullGuess,historyLength)
-        },
-        error: (error) => {
-          console.log(error)
-        }
-      })
+        })
+
+      }
       
     }
     
@@ -310,22 +347,27 @@ export class DayComponent implements OnInit{
       //center the player
       updatedPlayer.style.margin = "auto";
       updatedPlayer.style.display = "block";
-      console.log(this.player.width)
-      this.tmdbService.getStats(this.dayID).subscribe({
-        next: (response) => {
-          this.stats = response;
-          console.log("Stats")
-          console.log(this.stats)
-          this.statsLoaded=true;
-        },
-        error: (error) => {
-          console.log(error)
-        }
-      })
+      if(this.roomType == "day"){
+        this.tmdbService.getStats(this.dayID).subscribe({
+          next: (response) => {
+            this.stats = response;
+            console.log("Stats")
+            console.log(this.stats)
+            this.statsLoaded=true;
+          },
+          error: (error) => {
+            console.log(error)
+          }
+        })
+
+      }
     }
     
     private saveDataInDB(){
-      this.idbService.saveProgress(this.dayID,this.guessHistory,this.answer);
+      if(this.roomType == "day"){
+        this.idbService.saveProgress(this.dayID,this.guessHistory,this.answer);
+
+      }
     }
   
 
