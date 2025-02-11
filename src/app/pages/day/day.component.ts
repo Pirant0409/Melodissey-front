@@ -84,6 +84,7 @@ export class DayComponent implements OnInit{
         this.tmdbService.searchMovies(this.currentGuess).subscribe({
           next: (response) => {
             this.movies = response;
+            console.log(response)
           },
           error: (error) => {
             console.log(error)
@@ -355,6 +356,7 @@ export class DayComponent implements OnInit{
         this.tmdbService.getStats(this.dayID).subscribe({
           next: (response) => {
             this.stats = response;
+            console.log(this.stats)
             this.statsLoaded=true;
           },
           error: (error) => {

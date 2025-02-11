@@ -25,7 +25,6 @@ export class DaysComponent {
   private getAllDays(): void {
     this.tmdbService.getAllDays().subscribe((days) => {
       this.allDays = days;
-      console.log(this.allDays);
     });
   }
 
