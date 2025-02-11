@@ -137,7 +137,18 @@
     
     <!--############################# RESULTS FIELD #############################-->
     @else {
-        <div class="container d-flex flex-column  align-items-center justify-content-center answer-bg mt-3">
+
+        <div class="container d-flex flex-column  align-items-center justify-content-center answer-bg mt-3"> 
+        @if(answer.isRight){
+            <div>
+                <h2 class="txt-wht my-2">🎉Congratulations! You got it right!🎉</h2>
+            </div>
+        }
+        @else {
+            <div>
+                <h2 class="txt-wht my-2">😢Sorry, you didn't make it.😢</h2>
+            </div>
+        }
             <img *ngIf="answer.poster_path.length > 0; else noImage" 
                 [src]="answer.poster_path" 
                 alt="{{ answer.original_title }}"  

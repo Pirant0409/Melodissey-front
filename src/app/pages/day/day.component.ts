@@ -351,8 +351,6 @@ export class DayComponent implements OnInit{
         this.tmdbService.getStats(this.dayID).subscribe({
           next: (response) => {
             this.stats = response;
-            console.log("Stats")
-            console.log(this.stats)
             this.statsLoaded=true;
           },
           error: (error) => {
