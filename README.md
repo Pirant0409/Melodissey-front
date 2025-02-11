@@ -1,6 +1,7 @@
-# MelodisseyFront
+# Melodissey's Front-end
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.2.
+A daily blind test game where players guess the movie or series from a soundtrack. Each day, a new challenge is available with progressive hints.  
+![Main page](https://github.com/Pirant0409/Melodissey-front/blob/main/readMeAssets/main.jpg?raw=true)
 
 ## Development server
 
