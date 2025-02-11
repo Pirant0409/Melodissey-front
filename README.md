@@ -1,7 +1,12 @@
 # Melodissey's Front-end
 
-A daily blind test game where players guess the movie or series from a soundtrack. Each day, a new challenge is available with progressive hints.  
-![Main page](https://github.com/Pirant0409/Melodissey-front/blob/main/readMeAssets/main.png?raw=true)
+A daily blind test game where players guess the movie or series from a soundtrack. Each day, a new challenge is available with progressive hints.
+
+<p align="center">
+  ![Main page](https://github.com/Pirant0409/Melodissey-front/blob/main/readMeAssets/main.png?raw=true)
+</p>
+
+
 
 ## Development server
 
