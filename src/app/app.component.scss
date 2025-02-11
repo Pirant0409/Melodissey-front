@@ -1,0 +1,23 @@
+.nav-link{
+    color:white;
+    opacity:0.8;
+    transition: opacity 0.8s;
+    transition: font-weight 0.4s;  
+}
+
+.nav-link:hover{
+    color:#393e81;
+    font-weight: bold;
+    transition: opacity 0.4s;
+    transition: font-weight 0.4s;  
+}
+
+.active{
+    color:#393e81 !important;
+    font-weight: bold;
+    opacity: 1;
+}
+
+.ft-lg{
+    font-size: large;
+}

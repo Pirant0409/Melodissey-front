@@ -55,7 +55,6 @@ export class DayComponent implements OnInit{
   }
   
   ngOnInit(): void {
-    console.log("init")
     if (window.location.href.includes("day")){
       this.roomType = "day";
       this.getDayID();

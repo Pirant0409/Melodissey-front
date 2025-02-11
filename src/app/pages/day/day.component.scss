@@ -45,8 +45,8 @@
     width:400px; 
     height:50px; 
     background-color: #212529; 
-    border-color: #113d3de7;
-    outline-color: #255252;
+    border-color: #1c2057;
+    outline-color: #1c2057;
     outline: none;
     &::placeholder {
         color: #cbd1d1;
@@ -57,8 +57,8 @@
 }
 
 .guess-field:focus{
-    border-color: #0a2424e7;
-    box-shadow: 0 0 15px #40c9c9;
+    border-color: #1c2057;
+    box-shadow: 0 0 15px #1c2057;
   }
 
 .txt-wht{
@@ -155,4 +155,7 @@
 
   .btn-big{
     width: 200px;
+    background-color:#1c2057;
+    border-color:#1c2057;
+    font-weight: 500;
   }

@@ -9,10 +9,9 @@ html, body {
 }
 
 body{
+    background-color: #131313 !important; 
     height: 100%; /* Assurez-vous que html et body prennent toute la hauteur de la fenêtre */
-    background: linear-gradient(0deg,#000000ec  50%,#020f0fe7  );
     background-repeat: no-repeat;
-    background-position:fixed;
     background-size: cover;
 }
 
