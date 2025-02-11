@@ -26,50 +26,48 @@
     <!--############################# GUESS HISTORY #############################-->
     
     <div class="d-flex flex-column justify-content-center align-items-center" 
-            (mouseenter)="showGuessInfo = true" 
-            (mouseleave)="showGuessInfo = false">
+    (mouseenter)="showGuessInfo(true)" 
+    (mouseleave)="showGuessInfo(false)">
         <div class="d-flex justify-content-center">
             <i *ngFor="let id of ids" [id]="id" class="fa-solid fa-square m-2" style="font-size:30px; color:rgba(255, 255, 255, 0.356);"></i>
         </div>
     
         <!-- Liste de Guess -->
-        <div *ngIf="showGuessInfo && guessHistory.length > 0" class="guess-info guess-bg">
-        <a class="dropdown-item" href="#">
-            <div *ngFor="let guess of guessHistory" class="guess-item">
-            <!-- create vertical line left to image, title and date-->
-            <div class="col-auto">
-                <img *ngIf="guess.poster_path.length > 0; else noImage" 
-                    [src]="guess.poster_path" 
-                    alt="{{ guess.original_title }}" 
-                    class="movie-poster" />
-                    <ng-template #noImage>
-                        <div class="no-image-banner">
-                            <span class="no-image-text">None</span>
+        <div id="guess-info" class="guess-info guess-bg"  [ngClass]="{'show': showGuesses}">
+            <a class="dropdown-item" href="#">
+                <div *ngFor="let guess of guessHistory" class="guess-item">
+                    <!-- create vertical line left to image, title and date-->
+                    <div class="col-auto">
+                        <img *ngIf="guess.poster_path.length > 0; else noImage" 
+                        [src]="guess.poster_path" 
+                        alt="{{ guess.original_title }}" 
+                        class="movie-poster" />
+                        <ng-template #noImage>
+                            <div class="no-image-banner">
+                                <span class="no-image-text">None</span>
+                            </div>
+                        </ng-template>
+                    </div>
+                    <div class="col text-center">
+                        <div>
+                            <div class="bld-wrt txt-wht text-center" style="word-wrap: break-word; white-space: pre-wrap;">
+                                {{ guess.original_title }}
+                            </div>
+                            <div class="sm-wrt txt-wht text-center">
+                                {{ guess.release_date }}
+                            </div>
                         </div>
-                    </ng-template>
-            </div>
-            <div class="col text-center">
-                <div>
-                <div class="bld-wrt txt-wht text-center" style="word-wrap: break-word; white-space: pre-wrap;">
-                    {{ guess.original_title }}
+                    </div>
                 </div>
-                <div class="sm-wrt txt-wht text-center">
-                    {{ guess.release_date }}
-                </div>
-                </div>
-            </div>
-            </div>
-        </a>
+            </a>
         </div>
-
-        
     </div>
+
+<!--############################# GUESSING FIELD #############################-->
+@if(!showResult){
     
-    <!--############################# GUESSING FIELD #############################-->
-    @if(!showResult){
-        
-        <div class="d-flex justify-content-center mt-3">
-            <form>
+    <div class="d-flex justify-content-center mt-3">
+        <form>
                 <div class="form-row">
                     <input [(ngModel)]="currentGuess" (input)="onSearch()" id="guess-field" name="currentGuess" class="form-control guess-field" type="text" placeholder="Movie's title" autocomplete="off" required>
                     <div *ngIf="movies.length > 0" class="d-flex justify-content-center flex-column  align-items-center" style="background-color: #212529; border-radius: 10px; padding: 10px;">

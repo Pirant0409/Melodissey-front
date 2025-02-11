@@ -31,10 +31,10 @@ export class DayComponent implements OnInit{
   dataLoaded: boolean = false;
   YTPReady: boolean = false;
   showResult: boolean = false;
-  showGuessInfo: boolean = false;
   dropdownVisible: boolean = false;
   isPlaying:boolean = false;
   statsLoaded:boolean = false;
+  showGuesses:boolean = false;
 
   //###### data variables ######
   roomType="day";
@@ -235,6 +235,11 @@ export class DayComponent implements OnInit{
 
     //########################################    ANSWER PROCESS    ########################################
 
+  showGuessInfo(show: boolean) {
+    if (this.guessHistory.length > 0) {
+      this.showGuesses = show;
+    }
+  }
 
     onSubmit(guess:MovieInterface){
       this.currentGuess = "";
@@ -482,5 +487,4 @@ export class DayComponent implements OnInit{
     }
     
   }
-  
-  
+

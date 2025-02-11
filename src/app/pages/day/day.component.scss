@@ -73,7 +73,7 @@
   justify-content: flex-start; /* Aligner les éléments à gauche */
   gap: 1rem;                  /* Espacement entre les éléments */
   flex-wrap: nowrap;          /* Ne pas permettre un retour à la ligne */
-  width: fit-content;                /* Prendre toute la largeur disponible */
+  width: fit-content;         /* Prendre toute la largeur disponible */
 }
 
 .dropdown-item {
@@ -118,6 +118,8 @@
     backdrop-filter: blur(10px);
     max-width: 700px;
   }
+
+  
   .answer-bg{
     background-color: hsl(0, 0%, 100%,0.02);
     border-radius: 6px; 
@@ -158,4 +160,16 @@
     background-color:#1c2057;
     border-color:#1c2057;
     font-weight: 500;
+  }
+
+  #guess-info{
+    opacity: 0;
+    max-height: 0px;
+    transition: opacity 0.3s, max-height 1s;
+  }
+
+  #guess-info.show{
+    opacity: 1;
+    max-height: 1000px;
+    transition: opacity 0.8s, max-height 3s;
   }
