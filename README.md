@@ -14,7 +14,7 @@ A daily blind test game inspired by [Themely](https://themely.se/days) where pla
 - 🏆 **Leaderboard** – Compare your performance with other players (Comming soon)
 - 📊 **Local History** – Track past attempts and results  
 - 👥 **Private Rooms** – Play with friends in custom rooms
-- 🔧 **Admin Panel** – Add or edit game content easily (Admin only)
+- 🔧 **Admin Panel** – Add or edit game content easily (require back-end authentication)
 
 ## 🛠 Tech Stack  
 - **Framework:** Angular 19.1.4  
