@@ -7,11 +7,12 @@ import { MovieInterface } from '../../interfaces/movie-interface';
 import { AppComponent } from '../../app.component';
 import { IdbService } from '../../services/idb.service';
 import { StatsInterface } from '../../interfaces/stats-interface';
+import { TimerComponent } from "./timer/timer.component";
 
 @Component({
     selector: 'app-home',
     standalone: true,
-    imports: [CommonModule, FormsModule,],
+    imports: [CommonModule, FormsModule, TimerComponent],
     templateUrl: './day.component.html',
     styleUrl: './day.component.scss'
 })
@@ -218,6 +219,15 @@ export class DayComponent implements OnInit{
     })
   }
 
+  goToPreviousDay(){
+    //navigate to previous url
+    if(this.allDays.includes(this.dayID-1)){
+      let previousDay = this.dayID-1;
+      window.location.href = "/day/"+previousDay;
+    }
+  }
+  
+
   goToNextDay(){
     //navigate to next url
     if(this.allDays.includes(this.dayID+1)){
@@ -226,21 +236,17 @@ export class DayComponent implements OnInit{
     }
   }
 
-  goToPreviousDay(){
-    //navigate to previous url
-    if(this.allDays.includes(this.dayID-1)){
-      let previousDay = this.dayID-1;
-      window.location.href = "/day/"+previousDay;
-    }
-  }
-
-    //########################################    ANSWER PROCESS    ########################################
 
   showGuessInfo(show: boolean) {
     if (this.guessHistory.length > 0) {
       this.showGuesses = show;
     }
   }
+
+
+
+    //########################################    ANSWER PROCESS    ########################################
+
 
     onSubmit(guess:MovieInterface){
       this.currentGuess = "";
@@ -328,7 +334,7 @@ export class DayComponent implements OnInit{
     private updateGuessHistory(guess:GuessHistoryInterface, historyLength:number, isRestored:boolean = false){
       const guessSquare = document.getElementById(this.ids[historyLength]) as HTMLDivElement;
       this.guessHistory.push(guess);
-      if(guess.isRight || guess.isSameCollection){
+      if(guess.isRight){
         guessSquare.style.color = "#2DBA61";
         this.answer = guess;
       }

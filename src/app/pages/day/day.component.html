@@ -34,7 +34,7 @@
     
         <!-- Liste de Guess -->
         <div id="guess-info" class="guess-info guess-bg"  [ngClass]="{'show': showGuesses}">
-            <a class="dropdown-item" href="#">
+            <a class="dropdown-item">
                 <div *ngFor="let guess of guessHistory" class="guess-item">
                     <!-- create vertical line left to image, title and date-->
                     <div class="col-auto">
@@ -176,6 +176,9 @@
                         <button (click)="goToNextDay()" class="btn btn-dark btn-lg btn-big m-2" type="button">Next Day</button>
                     }
                 </div>
+            }
+            @if(!allDays.includes(dayID+1)){
+                <app-timer></app-timer>
             }
             
             @if(statsLoaded){

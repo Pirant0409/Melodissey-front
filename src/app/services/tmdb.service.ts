@@ -184,4 +184,14 @@ export class TMDBService {
       return of({"detail":error.error.detail, "status":error.status});
     }));
   }
+
+  getTimer(): Observable<any> {
+    const requestURL = `${this.apiUrl}/timer/`
+    return this.http.get(requestURL, { headers: this.headers, observe: 'response' }).pipe(map((response:any) => {
+      return {"detail": response.body.detail, "status": response.status, "hours":response.body.hours, "minutes":response.body.minutes, "seconds":response.body.seconds};
+    }),
+    catchError((error) => {
+      return of({"detail":error.error.detail, "status":error.status});
+    }));
+  }
 }
