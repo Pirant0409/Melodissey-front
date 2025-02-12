@@ -36,9 +36,11 @@
 }
 
 .txt-big{
-  font-size: 1.5em;
+  font-size: 2.5em;
   font-weight: 500;
   margin: 0; /* Remove margin to center text properly */
+  text-shadow: -2px -2px 2px #ffffff, 2px 2px 2px #ffffff,-2px 2px 2px #ffffff, 2px -2px 2px #ffffff, 0px 0px 2px #ffffff, 0px 0px 2px #ffffff;
+  
 }
 
 .container {
@@ -52,4 +54,43 @@
   margin-bottom: 10px; /* More space between rows */
 }
 
+.txt-wht{
+  color:#ffffff;
+  word-wrap:break-word;
+}
 
+.black-btn{
+  background-color: #131313;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  margin: 10px 0;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.black-btn:hover{
+  background-color: #ACADBC;
+  transform: scale(1.1);
+  transition: transform 0.3s, background-color 0.3s;
+}
+
+.black-btn.active{
+  background-color: #ACADBC;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.left-button {
+  position: absolute;
+  left: 0;
+}
+.right-button {
+  position: absolute;
+  right: 0;
+}

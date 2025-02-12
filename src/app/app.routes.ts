@@ -10,6 +10,7 @@ import { CreateRoomComponent } from './pages/create-room/create-room.component';
 
 export const routes: Routes = [
     {path: '', component: PreviousComponent},
+    {path: '?page=:id', component: PreviousComponent},
     {path: 'about', component: AboutComponent},
     {path: 'day/:id', component: DayComponent},
     {path: 'createRoom', component: CreateRoomComponent},
