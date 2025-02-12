@@ -178,7 +178,7 @@ export class DayComponent implements OnInit{
     
     this.tmdbService.getRoomYTBid(this.roomID).subscribe({
       next: (response) => {
-        if(!response.ytbID){
+        if(response.status != 200 || response.ytbID == ""){
           window.location.href = ""
         }
         else{

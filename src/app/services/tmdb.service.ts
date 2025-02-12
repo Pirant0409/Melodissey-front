@@ -49,8 +49,11 @@ export class TMDBService {
 
   getRoomYTBid(roomID:string): Observable<any> {
     const requestURL=`${this.apiUrl}/rooms/${roomID}`
-    return this.http.get(requestURL, { headers: this.headers }).pipe(map((response:any) => {
-      return response;
+    return this.http.get(requestURL, { headers: this.headers , observe: 'response'}).pipe(map((response:any) => {
+      return {"detail": response.body.detail, "status": response.status, "ytbID":response.body.ytbID};
+    }),
+    catchError((error) => {
+      return of({"detail":error.error.detail, "status":error.status})
     }))
   }
 
