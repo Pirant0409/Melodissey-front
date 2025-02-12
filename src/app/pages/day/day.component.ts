@@ -61,9 +61,7 @@ export class DayComponent implements OnInit{
       this.getDayID();
     }
     else if (window.location.href.includes("room")){
-      console.log("ICI LA")
       this.roomType = "room";
-      console.log(this.roomType)
       this.getRoomID();
     }
     this.setupMaxTime(this.guessHistory.length);
@@ -177,14 +175,16 @@ export class DayComponent implements OnInit{
     const urlID = urlParams[1].split ('?');
     this.roomID = urlID[0];
     //TODO : Je récupère tous les ID, pe plutot vérifier dans le back pour eviter de donner l'accès a toutes
-    this.tmdbService.getAllRoomids().subscribe({
+    
+    this.tmdbService.getRoomYTBid(this.roomID).subscribe({
       next: (response) => {
-        this.allRooms=response;
-        if (!this.allRooms.includes(this.roomID)){
+        if(!response.ytbID){
           window.location.href = ""
         }
         else{
-          this.getRoomData(this.roomID)
+          this.dataLoaded = true;
+          this.ytbID = response.ytbID;
+          this.loadYTBPlayer();
         }
       },
       error: (error) => {
