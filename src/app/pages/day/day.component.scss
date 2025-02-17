@@ -157,10 +157,15 @@
   }
 
   .btn-big{
-    width: 200px;
     background-color:#1c2057;
     border-color:#1c2057;
     font-weight: 500;
+    transition: transform 0.3s;
+  }
+
+  .btn-big:hover{
+    transform: scale(1.1); /* Slightly increase the size */
+    transition: transform 0.3s;
   }
 
   #guess-info{

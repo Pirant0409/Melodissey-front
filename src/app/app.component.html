@@ -1,15 +1,35 @@
 <router-outlet>
+  <p-dialog header="Join room" [modal]="true" [(visible)]="dialogVisible" [style]="{ width: '25rem' }">
+    <form [formGroup]="formGroup" class="d-flex flex-column">
+      <div class="form-group col-auto">
+        <label for="roomID">Room ID</label>
+        <input type="text" class="form-control" id="roomID" formControlName="roomID">
+    </div>
+      <div class="mt-4">
+          <button type="button" class="btn btn-success btn-clr btn-trs" (click)="joinRoom()">Join</button>
+          <button type="button" class="btn btn-danger mx-2 btn-trs" (click)="dialogVisible = false">Cancel</button>
+      </div>
+    </form>
+</p-dialog>
+
   <nav class="navbar navbar-dark navbar-expand" style="padding-top:30px">
     <!-- Navbar content -->
     <div class="navbar-collapse justify-content-center align-items-center" id="navbarText">
       <div class="container">
         <div class="row justify-content-md-center ">
           <ul class="navbar-nav justify-content-center align-items-center ">
+            <div class="col col-lg-2 text-start">
+              <li class="nav-item">
+                <a id="previous" class="nav-link noto-sans-txt ft-lg" href="/">
+                  <i class="fa-regular fa-calendar-days"></i>
+                  Previous days
+                </a>
+              </li>
+            </div>
             <div class="col col-lg-2">
-            
               <li class="nav-item ">
                 <a id="GOD" class="nav-link noto-sans-txt ft-lg" href="/day/{{lastID}}">
-                  <i class="fa-regular fa-calendar" style="padding-top:0;"></i>
+                  <i class="fa-regular fa-calendar"></i>
                   Current day
                 </a>
               </li>
@@ -18,14 +38,20 @@
               <a class="h1 justify-content-center align-top noto-sans-txt ft-lg branding" href="/">
                 <span >Melodissey</span>
               </a>
-            
             </div>
             <div class="col col-lg-2 text-end">
-            
               <li class="nav-item">
-                <a id="previous" class="nav-link noto-sans-txt ft-lg" href="/">
-                  <i class="fa-regular fa-calendar-days text-end"></i>
-                  Previous days
+                <a class="nav-link noto-sans-txt ft-lg"href="/createRoom">
+                  <i class="pi pi-plus-circle text-end"></i>
+                  Create room
+                </a>
+              </li>
+            </div>
+            <div class="col col-lg-2">
+              <li class="nav-item">
+                <a class="nav-link noto-sans-txt ft-lg" style="padding-left: 25%;" (click)="toggleJoinRoom()">
+                  <i class="pi pi-sign-in"></i>
+                  Join room
                 </a>
               </li>
             </div>

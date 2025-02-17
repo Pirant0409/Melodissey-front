@@ -1,19 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet, Router } from '@angular/router';
-import { IdbService } from './services/idb.service';
+import { Dialog } from 'primeng/dialog';
 import { TMDBService } from './services/tmdb.service';
-
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-root',
     standalone: true,
-    imports: [RouterOutlet],
+    imports: [ReactiveFormsModule, RouterOutlet, Dialog],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit{
 
-  constructor(private tmdbService: TMDBService) {
+  dialogVisible = false;
+  formGroup: FormGroup = new FormGroup({
+    roomID : new FormControl(''),
+  });
+  constructor(private tmdbService: TMDBService, private router:Router) {
   }
   title = 'melodissey-front';
   lastID = 0;
@@ -38,5 +42,20 @@ export class AppComponent implements OnInit{
         previousElement.classList.add("active")
       }
     }
+  }
+
+  toggleJoinRoom(){
+    this.dialogVisible = true;
+  }
+
+  joinRoom(){
+    if (this.formGroup.value.roomID != ""){
+     // go to route X.com/roomID
+
+      this.dialogVisible = false;
+      this.router.navigate(['/room/', this.formGroup.value.roomID]);
+
+    }
+
   }
 }

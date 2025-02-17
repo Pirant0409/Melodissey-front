@@ -32,3 +32,18 @@
 .branding:hover{
     text-shadow: 1px 1px 2px #393e81, 0 0 2em #393e81, 0 0 2em #393e81;
 }
+
+.btn-clr{
+    background-color:#1c2057;
+    border-color:#1c2057;
+    transition: transform 0.3s;
+}
+
+.btn-trs{
+    transition: transform 0.3s;
+}
+
+.btn-trs:hover{
+    transform: scale(1.1); /* Slightly increase the size */
+    transition: transform 0.3s;
+}
