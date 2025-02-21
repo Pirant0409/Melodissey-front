@@ -5,6 +5,7 @@ import { MovieInterface } from '../interfaces/movie-interface';
 import { map, switchMap, catchError } from 'rxjs/operators';
 import { DayInterface } from '../interfaces/day-interface';
 import { RawMoviesInterface } from '../interfaces/raw-movies-interface';
+import { environment } from '../../environments/environment'
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ import { RawMoviesInterface } from '../interfaces/raw-movies-interface';
 
 export class TMDBService {
   // private apiUrl = "http://127.0.0.1:8000"
-  private apiUrl = process.env['API_URL'] || "http://127.0.0.1:8000";
+  private apiUrl = environment.API_URL || "http://127.0.0.1:8000";
   private headers = new HttpHeaders()
   .set('Content-Type', 'application/json')
   .set('Accept', 'application/json');
