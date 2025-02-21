@@ -17,8 +17,6 @@ COPY . .
 # Construire l'application pour la production
 RUN npm run production
 
-RUN ls -l /usr/src/app/dist/melodissey-front
-
 # Étape 2 : Serveur pour servir les fichiers statiques
 FROM nginx:alpine
 
