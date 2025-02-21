@@ -11,7 +11,8 @@ import { RawMoviesInterface } from '../interfaces/raw-movies-interface';
 })
 
 export class TMDBService {
-  private apiUrl = "http://127.0.0.1:8000"
+  // private apiUrl = "http://127.0.0.1:8000"
+  private apiUrl = process.env['API_URL'] || "http://127.0.0.1:8000";
   private headers = new HttpHeaders()
   .set('Content-Type', 'application/json')
   .set('Accept', 'application/json');
