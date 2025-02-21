@@ -21,7 +21,7 @@ export class TMDBService {
   constructor(private http:HttpClient) { }
   
   searchMovies(query:string):Observable<MovieInterface[]>{
-    const requestURL = `${this.apiUrl}/search/${query}`
+    const requestURL = `${this.apiUrl}/search/${query}/`
     return this.http.get<MovieInterface[]>(requestURL,{headers:this.headers}).pipe(response => {
       console.log(response)
       return response;
