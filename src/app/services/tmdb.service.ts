@@ -197,4 +197,20 @@ export class TMDBService {
       return of({"detail":error.error.detail, "status":error.status});
     }));
   }
+
+  restoreDB(db:any):Observable<any>{
+    const token = localStorage.getItem('token');
+    if(!token){
+      return of(false);      
+    }
+    this.headers = this.headers.set('Authorization', `Bearer ${token}`);
+    const requestURL = `${this.apiUrl}/restoreDB/`
+    console.log(db)
+    return this.http.post(requestURL, JSON.stringify(db), { headers: this.headers, observe: 'response' }).pipe(map((response:any) => {
+      return {"detail": response.body.detail, "status": response.status};
+    }),
+    catchError((error) => {
+      return of({"detail":error.error.detail, "status":error.status});
+    }));
+  }
 }
