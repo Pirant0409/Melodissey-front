@@ -2,7 +2,7 @@
 FROM node:22-alpine AS build
 
 # Définir le répertoire de travail
-WORKDIR /app
+WORKDIR /usr/src/app
 
 # Copier le fichier package.json et package-lock.json
 COPY package*.json ./
@@ -20,7 +20,7 @@ RUN npm run build --prod
 FROM nginx:alpine
 
 # Copier les fichiers de build Angular dans le répertoire de Nginx
-COPY --from=build /app/dist/melodissey-front /usr/share/nginx/html
+COPY --from=build /usr/src/app/dist/melodissey-front /usr/share/nginx/html
 
 # Exposer le port 80 (port par défaut de Nginx)
 EXPOSE 80
