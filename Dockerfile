@@ -7,7 +7,6 @@ WORKDIR /usr/src/app
 
 # Copier le fichier package.json et package-lock.json
 COPY package.json package-lock.json ./
-RUN ls -l /usr/src
 
 # Installer les dépendances
 RUN npm install
@@ -17,6 +16,8 @@ COPY . .
 
 # Construire l'application pour la production
 RUN npm run production
+
+RUN ls -l /usr/src/app/dist/melodissey-front
 
 # Étape 2 : Serveur pour servir les fichiers statiques
 FROM nginx:alpine
