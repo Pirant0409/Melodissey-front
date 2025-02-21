@@ -3,17 +3,19 @@ import { RouterOutlet, Router } from '@angular/router';
 import { Dialog } from 'primeng/dialog';
 import { TMDBService } from './services/tmdb.service';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-root',
     standalone: true,
-    imports: [ReactiveFormsModule, RouterOutlet, Dialog],
+    imports: [ReactiveFormsModule, RouterOutlet, Dialog,CommonModule],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit{
 
   dialogVisible = false;
+  isNavbarOpen = false;
   formGroup: FormGroup = new FormGroup({
     roomID : new FormControl(''),
   });
@@ -25,6 +27,11 @@ export class AppComponent implements OnInit{
     this.tmdbService.getAllids().subscribe((ids) => {
       this.lastID = ids[ids.length - 1];
     });
+  }
+
+
+  toggleNavbar() {
+    this.isNavbarOpen = !this.isNavbarOpen;
   }
 
   changeActiveTab(isGOD:boolean){

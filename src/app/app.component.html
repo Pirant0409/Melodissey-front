@@ -4,63 +4,67 @@
       <div class="form-group col-auto">
         <label for="roomID">Room ID</label>
         <input type="text" class="form-control" id="roomID" formControlName="roomID">
-    </div>
+      </div>
       <div class="mt-4">
-          <button type="button" class="btn btn-success btn-clr btn-trs" (click)="joinRoom()">Join</button>
-          <button type="button" class="btn btn-danger mx-2 btn-trs" (click)="dialogVisible = false">Cancel</button>
+        <button type="button" class="btn btn-success btn-clr btn-trs" (click)="joinRoom()">Join</button>
+        <button type="button" class="btn btn-danger mx-2 btn-trs" (click)="dialogVisible = false">Cancel</button>
       </div>
     </form>
-</p-dialog>
+  </p-dialog>
 
-  <nav class="navbar navbar-dark navbar-expand" style="padding-top:30px">
-    <!-- Navbar content -->
-    <div class="navbar-collapse justify-content-center align-items-center" id="navbarText">
-      <div class="container">
-        <div class="row justify-content-md-center ">
-          <ul class="navbar-nav justify-content-center align-items-center ">
-            <div class="col col-lg-2 text-start">
-              <li class="nav-item">
-                <a id="previous" class="nav-link noto-sans-txt ft-lg" href="/">
-                  <i class="fa-regular fa-calendar-days"></i>
-                  Previous days
-                </a>
-              </li>
-            </div>
-            <div class="col col-lg-2">
-              <li class="nav-item ">
-                <a id="GOD" class="nav-link noto-sans-txt ft-lg" href="/day/{{lastID}}">
-                  <i class="fa-regular fa-calendar"></i>
-                  Current day
-                </a>
-              </li>
-            </div>
-            <div class="col-auto mb-2">
-              <a class="h1 justify-content-center align-top noto-sans-txt ft-lg branding" href="/">
-                <span >Melodissey</span>
-              </a>
-            </div>
-            <div class="col col-lg-2 text-end">
-              <li class="nav-item">
-                <a class="nav-link noto-sans-txt ft-lg"href="/createRoom">
-                  <i class="pi pi-plus-circle text-end"></i>
-                  Create room
-                </a>
-              </li>
-            </div>
-            <div class="col col-lg-2">
-              <li class="nav-item">
-                <a class="nav-link noto-sans-txt ft-lg" style="padding-left: 25%;" (click)="toggleJoinRoom()">
-                  <i class="pi pi-sign-in"></i>
-                  Join room
-                </a>
-              </li>
-            </div>
-          </ul>
+  <!-- Navbar -->
+  <nav class="navbar navbar-dark navbar-expand-lg px-3" style="padding-top:1.5em;">
+    <div class="container-fluid">
+      
+      <!-- Branding -->
+      <a class="navbar-brand noto-sans-txt ft-lg mx-auto" href="/">
+        <span>Melodissey</span>
+      </a>
+
+      <!-- Hamburger Button -->
+      <button class="navbar-toggler" type="button" (click)="toggleNavbar()">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Navbar Content -->
+      <div [ngClass]="{'collapse navbar-collapse': true, 'show': isNavbarOpen}" id="navbarNav">
+        <div class="d-flex flex-column flex-lg-row justify-content-between w-100 align-items-center">
           
-        </div>
+          <!-- Left Side Links -->
+          <ul class="navbar-nav flex-row">
+            <li class="nav-item">
+              <a class="nav-link noto-sans-txt ft-lg" href="/">
+                <i class="fa-regular fa-calendar-days"></i>
+                Previous days
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link noto-sans-txt ft-lg" href="/day/{{lastID}}">
+                <i class="fa-regular fa-calendar"></i>
+                Current day
+              </a>
+            </li>
+          </ul>
 
+          <!-- Right Side Links -->
+          <ul class="navbar-nav flex-row">
+            <li class="nav-item">
+              <a class="nav-link noto-sans-txt ft-lg" href="/createRoom">
+                <i class="pi pi-plus-circle"></i>
+                Create room
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link noto-sans-txt ft-lg" (click)="toggleJoinRoom()">
+                <i class="pi pi-sign-in"></i>
+                Join room
+              </a>
+            </li>
+          </ul>
+
+        </div>
       </div>
+
     </div>
   </nav>
-
 </router-outlet>
