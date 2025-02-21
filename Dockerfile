@@ -4,8 +4,10 @@ FROM node:22-alpine AS build
 # Définir le répertoire de travail
 WORKDIR /usr/src/app
 
+
 # Copier le fichier package.json et package-lock.json
 COPY package.json package-lock.json ./
+RUN ls -l /usr/src
 
 # Installer les dépendances
 RUN npm install
