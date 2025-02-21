@@ -22,9 +22,3 @@ FROM nginx:alpine
 COPY nginx.conf /etc/nginx/nginx.conf
 # Copier les fichiers de build Angular dans le répertoire de Nginx
 COPY --from=build /usr/src/app/dist/melodissey-front /usr/share/nginx/html
-
-# Exposer le port 80 (port par défaut de Nginx)
-EXPOSE 80
-
-# Commande de démarrage (Nginx serve le frontend)
-CMD ["nginx", "-g", "daemon off;"]
