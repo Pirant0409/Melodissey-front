@@ -29,28 +29,28 @@ export class TMDBService {
   }
 
   getAllids(): Observable<number[]> {
-    const requestURL = `${this.apiUrl}/days`
+    const requestURL = `${this.apiUrl}/days/`
     return this.http.get<number[]>(requestURL, { headers: this.headers }).pipe(response => {
       return response;
       });
     };
   
   getAllRoomids(): Observable<string[]> {
-    const requestURL = `${this.apiUrl}/rooms`
+    const requestURL = `${this.apiUrl}/rooms/`
     return this.http.get<string[]>(requestURL, { headers: this.headers }).pipe(response => {
       return response;
       });
   }
 
   getYTBid(dayID:number): Observable<any> {
-    const requestURL=`${this.apiUrl}/days/${dayID}`
+    const requestURL=`${this.apiUrl}/days/${dayID}/`
     return this.http.get(requestURL, { headers: this.headers }).pipe(map((response:any) => {
       return response;
     }))
   }
 
   getRoomYTBid(roomID:string): Observable<any> {
-    const requestURL=`${this.apiUrl}/rooms/${roomID}`
+    const requestURL=`${this.apiUrl}/rooms/${roomID}/`
     return this.http.get(requestURL, { headers: this.headers , observe: 'response'}).pipe(map((response:any) => {
       return {"detail": response.body.detail, "status": response.status, "ytbID":response.body.ytbID};
     }),
@@ -61,7 +61,7 @@ export class TMDBService {
 
   sendGuess(dayID:number, guess:MovieInterface,hint:number): Observable<any> {
     const params=`?media=${guess.media}&tmdbid=${guess.tmdbID}&collection=${guess.collection}&hint=${hint}`
-    const requestURL=`${this.apiUrl}/check/${dayID}${params}`
+    const requestURL=`${this.apiUrl}/check/${dayID}${params}/`
     console.log(requestURL)
     return this.http.get(requestURL, { headers: this.headers }).pipe(map((response:any) => {
       return response;
@@ -70,7 +70,7 @@ export class TMDBService {
 
   sendRoomGuess(roomID:string, guess:MovieInterface,hint:number): Observable<any> {
     const params=`?media=${guess.media}&tmdbid=${guess.tmdbID}&collection=${guess.collection}&hint=${hint}`
-    const requestURL=`${this.apiUrl}/checkRoom/${roomID}${params}`
+    const requestURL=`${this.apiUrl}/checkRoom/${roomID}${params}/`
     console.log(requestURL)
     return this.http.get(requestURL, { headers: this.headers }).pipe(map((response:any) => {
       return response;
@@ -78,21 +78,21 @@ export class TMDBService {
   }
 
   getAnswer(dayID:number): Observable<any> {
-    const requestURL=`${this.apiUrl}/check/${dayID}?answer=true`
+    const requestURL=`${this.apiUrl}/check/${dayID}?answer=true/`
     return this.http.get(requestURL, { headers: this.headers }).pipe(map((response:any) => {
       return response;
     }))
   }
 
   getStats(dayID:number): Observable<any> {
-    const requestURL=`${this.apiUrl}/stats/${dayID}`
+    const requestURL=`${this.apiUrl}/stats/${dayID}/`
     return this.http.get(requestURL, { headers: this.headers }).pipe(map((response:any) => {
       return response;
     }))
   }
 
   login(password:string): Observable<any> {
-    const requestURL=`${this.apiUrl}/admin/login`
+    const requestURL=`${this.apiUrl}/admin/login/`
     //return response of request or error
     return this.http.post(requestURL, {password}, { headers: this.headers, observe: 'response' }).pipe(map((response:any) => {
       return {"token":response.body.token, "status":response.status};
@@ -109,7 +109,7 @@ export class TMDBService {
       return of(false);
     } 
     
-    const tokenVerifURL = `${this.apiUrl}/admin/protected`	
+    const tokenVerifURL = `${this.apiUrl}/admin/protected/`	
     this.headers = this.headers.set('Authorization', `Bearer ${token}`);
     return this.http.get(tokenVerifURL, { headers: this.headers }).pipe(map((response:any) => {
       console.log(response)
@@ -128,7 +128,7 @@ export class TMDBService {
       
     } 
 
-    const requestURL = `${this.apiUrl}/allDays`
+    const requestURL = `${this.apiUrl}/allDays/`
     this.headers = this.headers.set('Authorization', `Bearer ${token}`);
     return this.http.get(requestURL, { headers: this.headers, }).pipe(response => {
       return response;
@@ -143,7 +143,7 @@ export class TMDBService {
     } 
     
     this.headers = this.headers.set('Authorization', `Bearer ${token}`);
-    const requestURL = `${this.apiUrl}/allMovies`
+    const requestURL = `${this.apiUrl}/allMovies/`
     return this.http.get(requestURL, { headers: this.headers }).pipe(response => {
       return response;
     });
