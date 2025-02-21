@@ -13,7 +13,7 @@ import { environment } from '../../environments/environment'
 
 export class TMDBService {
   // private apiUrl = "http://127.0.0.1:8000"
-  private apiUrl = environment.API_URL;
+  private apiUrl = environment.API_URL || "http://127.0.0.1:8000";
   private headers = new HttpHeaders()
   .set('Content-Type', 'application/json')
   .set('Accept', 'application/json');

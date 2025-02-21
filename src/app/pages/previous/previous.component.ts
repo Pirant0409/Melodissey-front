@@ -51,9 +51,7 @@ export class PreviousComponent implements OnInit{
     this.tmdbService.getAllids().subscribe({
       next: (response) => {
         this.allDays = response.reverse();
-        if (this.allDays.length > 8){
-          this.divideDays()
-        }
+        this.divideDays()
         this.loadProgress()
       },
       error: (error) => {
@@ -64,6 +62,7 @@ export class PreviousComponent implements OnInit{
   
   private divideDays(){
     let temp:number[]=[]
+    console.log("uo")
     for (let i = 0; i <= this.allDays.length; i++) {
       if(i%8 == 0 && i != 0 || i == this.allDays.length){
         this.dividedDays.push(temp)
@@ -120,7 +119,6 @@ export class PreviousComponent implements OnInit{
       }
     }
 
-    console.log(this.dividedDays[this.currentPage-1])
     this.stylesLoaded = true;
     
   }
