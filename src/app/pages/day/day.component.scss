@@ -43,7 +43,7 @@
   word-wrap:break-word
 }
 .guess-field{
-    width:100%; 
+    width:400px; 
     height:50px; 
     background-color: #212529; 
     border-color: #1c2057;
@@ -56,6 +56,17 @@
     color: #cbd1d1;
     font-weight: bold;
 }
+
+@media (max-width: 992px) {
+    .guess-field{
+      width: 100%;
+    }
+  }
+
+  .guess-field:focus{
+    border-color: #1c2057;
+    box-shadow: 0 0 15px #1c2057;
+  }
 
 .guess-field:focus{
     border-color: #1c2057;
