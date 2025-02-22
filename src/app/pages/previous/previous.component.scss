@@ -5,12 +5,18 @@
   justify-content: center;
   background-color: #ffffff;
   opacity: 0.3;
-  height: 25%;
+  height: 80px;
   width: 100%;
   border-radius: 10px 10px 10px 10px;
   margin: 1px 0.5px; /* Less space between elements inside a row */
   transition: transform 0.3s;
   position: relative;
+}
+
+@media (max-width: 992px) {
+  .dark-grey-sq{
+    height: 60px;
+  }
 }
 .dark-grey-sq:hover{
   background-color: #ACADBC;
@@ -87,4 +93,16 @@
 .right-button {
   position: absolute;
   right: 0;
+}
+
+.day-element{
+  width:600px;
+  text-decoration: none; 
+  color: inherit;
+}
+
+@media (max-width: 992px) {
+  .day-element{
+    width: 75%;
+  }
 }
