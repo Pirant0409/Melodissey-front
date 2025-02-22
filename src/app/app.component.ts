@@ -27,6 +27,7 @@ export class AppComponent implements OnInit{
     this.tmdbService.getAllids().subscribe((ids) => {
       this.lastID = ids[ids.length - 1];
     });
+    this.changeActiveTab(false);
   }
 
 
@@ -37,15 +38,20 @@ export class AppComponent implements OnInit{
   changeActiveTab(isGOD:boolean){
     const previousElement = document.getElementById("previous");
     const dayElement = document.getElementById("GOD");
+    const createElement = document.getElementById("create");
     const url = window.location.pathname;
-    if (previousElement && dayElement) {
+    if (previousElement && dayElement && createElement){ 
       previousElement.classList.remove("active");
       dayElement.classList.remove("active")
+      createElement.classList.remove("active");
       if (isGOD){
         dayElement.classList.add("active");
       }
       //check if day in the url
-      else if(!url.includes("day")){
+      else if(url.includes("create")){
+        createElement.classList.add("active");
+      }
+      else {
         previousElement.classList.add("active")
       }
     }

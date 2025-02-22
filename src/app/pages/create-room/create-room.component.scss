@@ -1,3 +1,4 @@
+@import "primeicons/primeicons.css";
 .form-bg{
     background-color: #fffffd;
     font-size: large;
@@ -7,7 +8,12 @@
     margin-top: 20px;
   }  
 
-  @import "primeicons/primeicons.css";
+  @media (max-width: 992px) {
+    .form-bg{
+      width: 80%;
+    }
+    
+  }
 
   .hidden{
       display:none;

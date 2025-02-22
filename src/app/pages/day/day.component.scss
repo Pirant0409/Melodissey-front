@@ -119,6 +119,11 @@
     backdrop-filter: blur(10px);
     max-width: 700px;
   }
+  @media (max-width: 992px) {
+    .guess-bg{
+      max-width: 70%;
+    }
+  }
 
   
   .answer-bg{
@@ -130,6 +135,11 @@
     min-width: 40%;
     background-repeat: no-repeat;
     color:white
+  }
+  @media (max-width: 992px) {
+    .answer-bg{
+      width: 70%;
+    }
   }
 
   .playbtn{
@@ -163,6 +173,7 @@
     transition: transform 0.3s;
   }
 
+
   .btn-big:hover{
     transform: scale(1.1); /* Slightly increase the size */
     transition: transform 0.3s;
@@ -178,4 +189,11 @@
     opacity: 1;
     max-height: 1000px;
     transition: opacity 0.8s, max-height 3s;
+  }
+
+  @media (max-width: 992px) {
+    .btn-lg{
+      font-size: 0.99rem;
+    }
+
   }

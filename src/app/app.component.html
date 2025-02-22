@@ -17,39 +17,37 @@
     <div class="container-fluid">
       
       <!-- Branding -->
-      <a class="navbar-brand noto-sans-txt ft-lg mx-auto" href="/">
+      <a class="navbar-brand noto-sans-txt branding" href="/">
         <span>Melodissey</span>
       </a>
+    </div>
+    <div class="container-fluid">
 
       <!-- Hamburger Button -->
       <button class="navbar-toggler" type="button" (click)="toggleNavbar()">
-        <span class="navbar-toggler-icon"></span>
+          <i class="fas fa-bars icon"></i>
       </button>
 
       <!-- Navbar Content -->
       <div [ngClass]="{'collapse navbar-collapse': true, 'show': isNavbarOpen}" id="navbarNav">
-        <div class="d-flex flex-column flex-lg-row justify-content-between w-100 align-items-center">
+        <div class="d-flex w-100 justify-content-between">
           
           <!-- Left Side Links -->
-          <ul class="navbar-nav flex-row">
-            <li class="nav-item">
-              <a class="nav-link noto-sans-txt ft-lg" href="/">
+          <ul class="navbar-nav">
+            <li class="nav-item" >
+              <a id="previous" class="nav-link noto-sans-txt ft-lg" href="/">
                 <i class="fa-regular fa-calendar-days"></i>
                 Previous days
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link noto-sans-txt ft-lg" href="/day/{{lastID}}">
+              <a id="GOD" class="nav-link noto-sans-txt ft-lg" href="/day/{{lastID}}">
                 <i class="fa-regular fa-calendar"></i>
                 Current day
               </a>
             </li>
-          </ul>
-
-          <!-- Right Side Links -->
-          <ul class="navbar-nav flex-row">
             <li class="nav-item">
-              <a class="nav-link noto-sans-txt ft-lg" href="/createRoom">
+              <a id="create" class="nav-link noto-sans-txt ft-lg" href="/createRoom">
                 <i class="pi pi-plus-circle"></i>
                 Create room
               </a>

@@ -154,8 +154,8 @@ export class CreateRoomComponent implements OnInit{
 
   private onYoutubeIframeAPIReady(){
     this.player = new YT.Player('player', {
-      height: '315',
-      width: '560',
+      height: '250',
+      width: '70%',
       videoId: this.roomData.value.ytbid,
       events: {
         'onReady': (event) => {this.onPlayerReady(event)},
