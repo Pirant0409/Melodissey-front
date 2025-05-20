@@ -44,7 +44,7 @@ export class CreateRoomComponent implements OnInit{
   }
 
   onSubmit(): void {
-    console.log(this.roomData.valid)
+
     if(this.roomData.valid && this.selectedMovie){
       this.dataToSend = {
         ytbid: this.roomData.value.ytbid,
@@ -103,7 +103,7 @@ export class CreateRoomComponent implements OnInit{
             this.movies = response;
           },
           error: (error) => {
-            console.log(error)
+            (error)
           }
         })
       }}, 250)

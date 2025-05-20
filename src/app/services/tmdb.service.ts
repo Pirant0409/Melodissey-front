@@ -23,7 +23,6 @@ export class TMDBService {
   searchMovies(query:string):Observable<MovieInterface[]>{
     const requestURL = `${this.apiUrl}/search/${query}/`
     return this.http.get<MovieInterface[]>(requestURL,{headers:this.headers}).pipe(response => {
-      console.log(response)
       return response;
     });
   }
@@ -62,7 +61,6 @@ export class TMDBService {
   sendGuess(dayID:number, guess:MovieInterface,hint:number): Observable<any> {
     const params=`?media=${guess.media}&tmdbid=${guess.tmdbID}&collection=${guess.collection}&hint=${hint}`
     const requestURL=`${this.apiUrl}/check/${dayID}/${params}`
-    console.log(requestURL)
     return this.http.get(requestURL, { headers: this.headers }).pipe(map((response:any) => {
       return response;
     }))
@@ -71,7 +69,6 @@ export class TMDBService {
   sendRoomGuess(roomID:string, guess:MovieInterface,hint:number): Observable<any> {
     const params=`?media=${guess.media}&tmdbid=${guess.tmdbID}&collection=${guess.collection}&hint=${hint}`
     const requestURL=`${this.apiUrl}/checkRoom/${roomID}/${params}`
-    console.log(requestURL)
     return this.http.get(requestURL, { headers: this.headers }).pipe(map((response:any) => {
       return response;
     }))
@@ -105,14 +102,12 @@ export class TMDBService {
   isAuthenticated(): Observable<boolean> {
     const token = localStorage.getItem('token');
     if(!token){
-      console.log('no token found')
       return of(false);
     } 
     
     const tokenVerifURL = `${this.apiUrl}/admin/protected/`	
     this.headers = this.headers.set('Authorization', `Bearer ${token}`);
     return this.http.get(tokenVerifURL, { headers: this.headers }).pipe(map((response:any) => {
-      console.log(response)
       return true;
     }),
     catchError((error) =>{
@@ -207,7 +202,6 @@ export class TMDBService {
     }
     this.headers = this.headers.set('Authorization', `Bearer ${token}`);
     const requestURL = `${this.apiUrl}/restoreDB/`
-    console.log(db)
     return this.http.post(requestURL, JSON.stringify(db), { headers: this.headers, observe: 'response' }).pipe(map((response:any) => {
       return {"detail": response.body.detail, "status": response.status};
     }),
