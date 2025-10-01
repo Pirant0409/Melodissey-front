@@ -1,12 +1,12 @@
 # Melodissey's Front-end
 
 A daily blind test game inspired by [Themely](https://themely.se/days) where players guess the movie or series from a soundtrack.<br> The game provides hints progressively and allows players to compare their scores on a leaderboard.
-
+🔗 The backend repository is available here: [Meldoissey's back-end](https://github.com/Pirant0409/MelodisseyBack)  
 <p align="center">
   <img src="./readMeAssets/challenge.png?raw=true" alt="Main page">
 </p>
 
-🔗 The backend repository is available here: [Meldoissey's back-end](https://github.com/Pirant0409/MelodisseyBack)  
+
 
 ## 🚀 Features  
 - 🎶 **Daily Blind Test Challenges** – A new soundtrack to guess each day  
