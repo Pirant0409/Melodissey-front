@@ -23,6 +23,7 @@ A daily blind test game inspired by [Themely](https://themely.se/days) where pla
 
 ## ⚙️ Installation & Setup  
 
+### Local
 ```bash
 # Clone the repository
 git clone https://github.com/Pirant0409/Melodissey-front.git
