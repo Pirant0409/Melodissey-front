@@ -35,3 +35,18 @@ npm install
 
 # Start the development server
 ng serve
+```
+
+The app will be available at http://localhost:4200
+
+### Production (Docker)
+
+A Dockerfile is provided to build and serve the project in production using Nginx.
+```bash
+🛠 Build & Run
+# Build the Docker image
+docker build -t melodissey-front .
+
+# Run the container (serving on port 80 by default)
+docker run -d -p 80:80 melodissey-front
+ ```
